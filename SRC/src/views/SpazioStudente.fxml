@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="410.0" prefWidth="600.0" style="-fx-background-color: #87CEEB;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.SpazioStudenteController">
+   <children>
+      <Button fx:id="modifierProfiB" layoutX="171.0" layoutY="129.0" mnemonicParsing="false" onAction="#modifierProfiB" prefHeight="50.0" prefWidth="200.0" text="Modifica Anagrafica" />
+      <Button fx:id="planEtudesB" layoutX="171.0" layoutY="189.0" mnemonicParsing="false" onAction="#planEtudes" prefHeight="50.0" prefWidth="200.0" text="Piano di studi" />
+      <Button fx:id="noteExamenB" layoutX="171.0" layoutY="255.0" mnemonicParsing="false" onAction="#noteExamen" prefHeight="50.0" prefWidth="200.0" text="Voti esami" />
+      <Button fx:id="reserverExamenB" layoutX="171.0" layoutY="323.0" mnemonicParsing="false" onAction="#reserverExamenB" prefHeight="50.0" prefWidth="200.0" text="Prenotare esame" />
+      <Label layoutX="24.0" layoutY="42.0" prefHeight="50.0" prefWidth="347.0" text=" Servizi Online per studenti :" textFill="#38047c">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Label>
+      <Button fx:id="logOutB" layoutX="465.0" layoutY="22.0" mnemonicParsing="false" onAction="#logOut" prefHeight="25.0" prefWidth="121.0" text="Esci" />
+      <Label fx:id="labelH" layoutX="371.0" layoutY="59.0" text="Label" />
+   </children>
+</AnchorPane>

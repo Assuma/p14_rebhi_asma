@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="486.0" prefWidth="626.0" style="-fx-background-color: #87CEEB;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.ModificareAnagraficaController">
+   <children>
+      <Button fx:id="retourB" layoutX="24.0" layoutY="26.0" mnemonicParsing="false" onAction="#retour" prefHeight="26.0" prefWidth="90.0" text="Indietro" />
+      <Label layoutX="174.0" layoutY="52.0" prefHeight="65.0" prefWidth="314.0" text="Modifica anagrafica" textFill="#15069a">
+         <font>
+            <Font size="27.0" />
+         </font>
+      </Label>
+      <TextField fx:id="cellulare" layoutX="120.0" layoutY="303.0" />
+      <TextField fx:id="cognome" layoutX="120.0" layoutY="138.0" />
+      <TextField fx:id="email" layoutX="120.0" layoutY="216.0" />
+      <TextField fx:id="nome" layoutX="455.0" layoutY="134.0" prefHeight="26.0" prefWidth="157.0" />
+      <TextField fx:id="indrizzo" layoutX="453.0" layoutY="299.0" prefHeight="26.0" prefWidth="157.0" />
+      <Label layoutX="35.0" layoutY="307.0" prefHeight="17.0" prefWidth="102.0" text="Cellulare" />
+      <Label layoutX="35.0" layoutY="142.0" prefHeight="17.0" prefWidth="102.0" text="Cognome" />
+      <Label layoutX="35.0" layoutY="216.0" prefHeight="17.0" prefWidth="102.0" text="Email" />
+      <Label layoutX="370.0" layoutY="212.0" prefHeight="17.0" prefWidth="102.0" text="Password" />
+      <Label layoutX="370.0" layoutY="301.0" prefHeight="17.0" prefWidth="102.0" text="Indrizzo" />
+      <Label layoutX="369.0" layoutY="136.0" prefHeight="17.0" prefWidth="102.0" text="Nome" />
+      <Button fx:id="modifierB" layoutX="239.0" layoutY="389.0" mnemonicParsing="false" onAction="#DoModifier" prefHeight="46.0" prefWidth="149.0" text="Modifica" />
+      <PasswordField fx:id="password" layoutX="455.0" layoutY="210.0" prefHeight="26.0" prefWidth="157.0" />
+   </children>
+</AnchorPane>
