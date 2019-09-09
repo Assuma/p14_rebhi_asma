@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>PianoDiStudioController.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;progettoJava&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">views</a> &gt; <span class="el_source">PianoDiStudioController.java</span></div><h1>PianoDiStudioController.java</h1><pre class="source lang-java linenums">package views;
+
+import com.sun.prism.impl.Disposer;
+import connessione_al_database.MyDB;
+import entità.Insegnamento;
+import entità.Studente;
+import java.io.IOException;
+import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
+import javafx.util.Callback;
+import servizio.ButtonCellPianoSt;
+import servizio.Service;
+
+
+/**
+ * 
+ * @author assma
+ */
+
+/**
+ *Compilare il piano di studio, selezionare le matiere ad aggiungere nel piano di studio
+ */
+
+<span class="fc" id="L46">public class PianoDiStudioController implements Initializable {</span>
+
+    @FXML
+    private TableView&lt;Insegnamento&gt; tablePlanEtudes;
+    @FXML
+    private Button retourB;
+    @FXML
+    private TableColumn&lt;Insegnamento, String&gt; nom;
+    @FXML
+    private TableColumn&lt;Insegnamento, String&gt; description;
+    @FXML
+    private TableColumn&lt;Insegnamento, Integer&gt; coefficient;
+    @FXML
+    private TableColumn&lt;Disposer.Record, Boolean&gt; action;
+
+<span class="fc" id="L61">        public ObservableList&lt;Insegnamento&gt;data=FXCollections.observableArrayList();</span>
+    @FXML
+    private TableView&lt;Insegnamento&gt; monTable;
+    @FXML
+    private TableColumn&lt;Insegnamento, String&gt; monNom;
+    @FXML
+    private TableColumn&lt;Insegnamento, String&gt; monDescription;
+    @FXML
+    private TableColumn&lt;Insegnamento, Integer&gt; monCoefficient;
+<span class="fc" id="L70">        public ObservableList&lt;Insegnamento&gt;data1=FXCollections.observableArrayList();</span>
+
+    /**
+     * Initializes the controller class.
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        try {
+<span class="fc" id="L78">            Service es = new Service();</span>
+<span class="fc" id="L79">            Studente etudiant = es.getStudentById(LoginMemberController.getIdCnx());</span>
+                    
+
+<span class="fc" id="L82">            MyDB myDB = MyDB.getInstance();</span>
+<span class="fc" id="L83">            Statement stm = myDB.getConnexion().createStatement();</span>
+<span class="fc" id="L84">            ResultSet rest = stm.executeQuery(&quot;select * from insegnamento i where NOT EXISTS ( SELECT * from insegnamento_utente u where u.listInsegnamento_codice = i.codice and u.listUtente_matricola =&quot;+LoginMemberController.getIdCnx()+&quot; ) and i.annoDiStudi ='&quot;+etudiant.getAnnoSt()+&quot;'&quot;);</span>
+
+            
+<span class="fc bfc" id="L87" title="All 2 branches covered.">            while (rest.next()) {</span>
+<span class="fc" id="L88">                data.add(new Insegnamento(rest.getInt(1), rest.getInt(3), rest.getString(4), rest.getString(5)));</span>
+
+            }
+
+<span class="nc" id="L92">        } catch (SQLException ex) {</span>
+<span class="nc" id="L93">            Logger.getLogger(Insegnamento.class.getName()).log(Level.SEVERE, null, ex);</span>
+<span class="fc" id="L94">        }</span>
+
+<span class="fc" id="L96">        nom.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;nome&quot;));</span>
+<span class="fc" id="L97">        description.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;description&quot;));</span>
+<span class="fc" id="L98">        coefficient.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;cfu&quot;));</span>
+<span class="fc" id="L99">         action.setCellValueFactory(</span>
+<span class="fc" id="L100">                new Callback&lt;TableColumn.CellDataFeatures&lt;Disposer.Record, Boolean&gt;, ObservableValue&lt;Boolean&gt;&gt;() {</span>
+
+            @Override
+            public ObservableValue&lt;Boolean&gt; call(TableColumn.CellDataFeatures&lt;Disposer.Record, Boolean&gt; p) {
+<span class="pc bpc" id="L104" title="1 of 2 branches missed.">                return new SimpleBooleanProperty(p.getValue() != null);</span>
+            }
+        });
+
+        //Adding the Button to the cell
+<span class="fc" id="L109">        action.setCellFactory(new Callback&lt;TableColumn&lt;Disposer.Record, Boolean&gt;, TableCell&lt;Disposer.Record, Boolean&gt;&gt;() {</span>
+
+            @Override
+            public TableCell&lt;Disposer.Record, Boolean&gt; call(TableColumn&lt;Disposer.Record, Boolean&gt; p) {
+<span class="fc" id="L113">                return new ButtonCellPianoSt();</span>
+            }
+
+        });
+       
+        
+<span class="fc" id="L119">        tablePlanEtudes.setItems(data);</span>
+
+     try {
+<span class="fc" id="L122">     Service es = new Service();</span>
+
+<span class="fc" id="L124">            MyDB myDB = MyDB.getInstance();</span>
+<span class="fc" id="L125">            Statement stm = myDB.getConnexion().createStatement();</span>
+<span class="fc" id="L126">            ResultSet rest = stm.executeQuery(&quot;select * from insegnamento_utente  where listUtente_matricola =&quot;+LoginMemberController.getIdCnx()+&quot;&quot;);</span>
+
+            
+<span class="fc bfc" id="L129" title="All 2 branches covered.">            while (rest.next()) {</span>
+<span class="fc" id="L130">                data1.add(es.getMateriaById(rest.getInt(1)));</span>
+
+            }
+
+<span class="nc" id="L134">        } catch (SQLException ex) {</span>
+<span class="nc" id="L135">            Logger.getLogger(Insegnamento.class.getName()).log(Level.SEVERE, null, ex);</span>
+<span class="fc" id="L136">        }</span>
+
+<span class="fc" id="L138">        monNom.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;nome&quot;));</span>
+<span class="fc" id="L139">        monDescription.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;description&quot;));</span>
+<span class="fc" id="L140">        monCoefficient.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;cfu&quot;));</span>
+        /* etat.setCellValueFactory(new Callback&lt;TableColumn.CellDataFeatures&lt;Insegnamento, String&gt;, ObservableValue&lt;String&gt;&gt;() {
+            @Override
+            public ObservableValue&lt;String&gt; call(TableColumn.CellDataFeatures&lt;Insegnamento, String&gt; param) {
+                Prenotazione u = new Prenotazione();
+                EtudiantService us = new EtudiantService();
+
+                u = us.getEtatByIDMatiere(param.getValue().getCodice());
+                return new SimpleStringProperty(u.getStato());
+            }
+        }); */
+<span class="fc" id="L151">        monTable.setItems(data1);</span>
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+<span class="fc" id="L164">    }</span>
+    
+
+    @FXML
+    private void retour(ActionEvent event) throws IOException {
+
+<span class="fc" id="L170">        Parent page1 = FXMLLoader.load(getClass().getResource(&quot;/views/SpazioStudente.fxml&quot;));</span>
+<span class="fc" id="L171">        Scene scene = new Scene(page1);</span>
+<span class="fc" id="L172">        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();</span>
+<span class="fc" id="L173">        stage.setScene(scene);</span>
+<span class="fc" id="L174">        stage.show();</span>
+<span class="fc" id="L175">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

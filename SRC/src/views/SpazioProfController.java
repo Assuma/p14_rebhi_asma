@@ -1,4 +1,3 @@
-
 package views;
 
 import java.io.IOException;
@@ -13,14 +12,24 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * 
+ * @author assma
+ */
+
+/**
+ *Presentare lo spazio per i docenti e i suoi differenti funzionalita' chi puo' fare
+ */
 
 public class SpazioProfController implements Initializable {
-
+   /**
+     * Initializes the controller class.
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
-
+   //Logout e tornare alla pagina precedente
     @FXML
     private void logOut(ActionEvent event) throws IOException {
           Parent page1 = FXMLLoader.load(getClass().getResource("/views/LoginMember.fxml"));
@@ -29,7 +38,7 @@ public class SpazioProfController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
-
+    //andare all'interfaccia per aggiungere un appello 
     @FXML
     private void ajouterAppel(ActionEvent event) throws IOException {
           Parent page1 = FXMLLoader.load(getClass().getResource("/views/AggiungereAppello.fxml"));
@@ -38,16 +47,8 @@ public class SpazioProfController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
-
-    @FXML
-    private void statProf(ActionEvent event) throws IOException {
-          Parent page1 = FXMLLoader.load(getClass().getResource("/views/StatisticheProf.fxml"));
-        Scene scene = new Scene(page1);
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(scene);
-        stage.show();
-    }
-
+  
+   //andare all'interfaccia per inserire i voti 
     @FXML
     private void AjouterNote(ActionEvent event) throws IOException {
          Parent page1 = FXMLLoader.load(getClass().getResource("/views/InserireVoto.fxml"));

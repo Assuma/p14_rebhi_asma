@@ -1,27 +1,51 @@
 package entità;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * 
+ * @author assma
+ */
+
+/**
+ * Classe:Appello
+ * contiene il id ,la data dell'appello, la durata, l'aula dove si tratta l'esame 
+ */
 
 public class Appello {
 
+    /** Attributes */
     private int id;
     private Date date;
     private String description;
     private double durata;
     private String aula;
+    
+    /** Associations */
     private int docente;
     private int insegnamento;
     private List<Prenotazione> listPrenotazione;
     private double voto;
     private Studente studente;
 
+    
+    
+    /** Costruttore senza parametri*/
     public Appello() {
         super();
     }
-
+    
+       /** 
+     * Costruttore con parametri
+     * @param id
+     * @param description
+     * @param date
+     * @param aula
+     * @param durata
+     * @param docente
+     * @param insegnamento
+     */
  
     public Appello(int id, String description, Date date, String aula, double durata, int docente, int insegnamento) {
         this.id = id;
@@ -33,7 +57,7 @@ public class Appello {
         this.insegnamento = insegnamento;
        
     }
-
+   
     
       public Appello(int id, String description,String aula, double durata, int docente, int insegnamento,int voto) {
         this.id = id;
@@ -46,9 +70,9 @@ public class Appello {
        
     }
     
- 
- 
-
+    /**
+	 * @return id
+	 */
     public int getId() {
         return this.id;
     }
@@ -56,7 +80,9 @@ public class Appello {
     public void setId(int id) {
         this.id = id;
     }
-
+    /**
+	 * @return date
+	 */
     public Date getDate() {
         return this.date;
     }
@@ -64,7 +90,9 @@ public class Appello {
     public void setDate(Date date) {
         this.date = date;
     }
-
+    /**
+	 * @return description
+	 */
     public String getDescription() {
         return this.description;
     }
@@ -72,7 +100,9 @@ public class Appello {
     public void setDescription(String description) {
         this.description = description;
     }
-
+    /**
+	 * @return durata
+	 */
     public double getDurata() {
         return this.durata;
     }
@@ -80,7 +110,9 @@ public class Appello {
     public void setDurata(double durata) {
         this.durata = durata;
     }
-
+    /**
+	 * @return aula
+	 */
     public String getAula() {
         return this.aula;
     }
@@ -89,6 +121,9 @@ public class Appello {
         this.aula = aula;
     }
     
+    /**
+	 * @return voto
+	 */
         public int getVoto() {
         return (int) this.voto;
     }
@@ -97,7 +132,9 @@ public class Appello {
         this.voto = voto;
     }
 
-
+    /**
+	 * @return docente
+	 */
     public int getDocente() {
         return docente;
     }
@@ -107,17 +144,17 @@ public class Appello {
     }
     
     public void setStudente(Studente studente) {
-		this.studente=studente;
+	this.studente=studente;
 	}
-	
-	/**Operazione getStudente
-	 * 	
-	 * @return
+    /**
+	 * @return studente
 	 */
-	public Studente getStudente() {
-		return studente;
-}
-
+    public Studente getStudente() {
+     return studente;
+    }
+    /**
+	 * @return insegnamento
+	 */
     public int getInsegnamento() {
         return insegnamento;
     }
@@ -126,7 +163,9 @@ public class Appello {
         this.insegnamento = insegnamento;
     }
 
-  
+    /**
+	 * @return listPrenotazione
+	 */
     public List<Prenotazione> getListPrenotazione() {
         return listPrenotazione;
     }
@@ -134,7 +173,14 @@ public class Appello {
     public void setListPrenotazione(List<Prenotazione> listPrenotazione) {
         this.listPrenotazione = listPrenotazione;
     }
-
+   
+    
+    /**
+     * @param voto
+     * operazione permette allo sutdente di accettare un voto uguale o piu' di 18
+     * @return 
+	 */
+     
     public boolean isAccettareVoto(int voto) {
         
 		if (voto>=18 &&  studente.accettareVoto()==true) {
@@ -144,60 +190,5 @@ public class Appello {
 		}
 	}
 	
-
-//    @Override
-//    public int hashCode() {
-//        int hash = 3;
-//        hash = 97 * hash + this.id;
-//        hash = 97 * hash + Objects.hashCode(this.date);
-//        hash = 97 * hash + Objects.hashCode(this.description);
-//        hash = 97 * hash + (int) (Double.doubleToLongBits(this.durata) ^ (Double.doubleToLongBits(this.durata) >>> 32));
-//        hash = 97 * hash + Objects.hashCode(this.aula);
-//        hash = 97 * hash + Objects.hashCode(this.docente);
-//        hash = 97 * hash + Objects.hashCode(this.insegnamento);
-//        hash = 97 * hash + Objects.hashCode(this.listPrenotazione);
-//        return hash;
-//    }
-
-//    @Override
-//    public boolean equals(Object obj) {
-//        if (this == obj) {
-//            return true;
-//        }
-//        if (obj == null) {
-//            return false;
-//        }
-//        if (getClass() != obj.getClass()) {
-//            return false;
-//        }
-//        final Appello other = (Appello) obj;
-//        if (this.id != other.id) {
-//            return false;
-//        }
-//        if (Double.doubleToLongBits(this.durata) != Double.doubleToLongBits(other.durata)) {
-//            return false;
-//        }
-//        if (!Objects.equals(this.description, other.description)) {
-//            return false;
-//        }
-//        if (!Objects.equals(this.aula, other.aula)) {
-//            return false;
-//        }
-//        if (!Objects.equals(this.date, other.date)) {
-//            return false;
-//        }
-//        if (!Objects.equals(this.docente, other.docente)) {
-//            return false;
-//        }
-//        if (!Objects.equals(this.insegnamento, other.insegnamento)) {
-//            return false;
-//        }
-//        if (!Objects.equals(this.listPrenotazione, other.listPrenotazione)) {
-//            return false;
-//        }
-//        return true;
-//    }
-
-    
     
 }

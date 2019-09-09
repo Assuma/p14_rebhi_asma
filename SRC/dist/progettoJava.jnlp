@@ -7,14 +7,14 @@
     <offline-allowed/>
   </information>
   <resources>
-    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <j2se version="1.6+" java-vm-args="-javaagent:"/home/assma/.netbeans/8.2/modules/ext/jacocoagent.jar"=includes=iservizio.*:views.*:com.*:servizio.*:enumerations.*:connessione_al_database.*:entità.*:com.javafx.*:com.javafx.main.*,destfile="/home/assma/Bureau/Projet JavaFX/progettoJava/jacoco.exec-176648216146824" "  href="http://java.sun.com/products/autodl/j2se"/>
     <jar href="lib/junit-4.12.jar" size="316791" download="eager" />
     <jar href="lib/mysql-connector-java-5.1.23-bin.jar" size="834126" download="eager" />
-    <jar href="progettoJava.jar" size="91307" download="eager" />
+    <jar href="progettoJava.jar" size="89813" download="eager" />
   </resources>
   <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="progettoJava" >
     <param name="requiredFXVersion" value="8.0+"/>
   </applet-desc>
-  <jfx:javafx-desc  width="800" height="600" main-class="Main.Main"  name="progettoJava" />
+  <jfx:javafx-desc  width="800" height="600" main-class="com.javafx.main.Main"  name="progettoJava" />
   <update check="always"/>
 </jnlp>

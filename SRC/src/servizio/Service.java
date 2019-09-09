@@ -18,6 +18,16 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import views.LoginMemberController;
 
+/**
+ * 
+ * @author assma
+ */
+
+/**
+ *Implementare i queri dei servizi/funzioni dichiarati nell'interfaccia IService
+ */
+
+
 public class Service implements iservizio.IService {
 
     MyDB myDB;
@@ -56,7 +66,6 @@ public class Service implements iservizio.IService {
             bp.setAnnoSt(AnnoDiStudi.valueOf(rest.getString(9)));
             // bp.set(rest.getInt(9));
             // bp.setCorsoDiStudio(rest.getInt(10));   
-            // bp.setDateFabrication(rest.getInt(11));
 
         }
         return bp;
@@ -226,11 +235,18 @@ public class Service implements iservizio.IService {
             PreparedStatement prep;
             myDB = MyDB.getInstance();
             String req;
-            req = "UPDATE `prenotazione` SET  `voto` = ? WHERE id = " + id + "";
+            req = "UPDATE `prenotazione` SET  `voto` = ? , stato = ? WHERE id = " + id + "";
             prep = myDB.getConnexion().prepareStatement(req);
             prep.setDouble(1, note);
+            if (note >= 18) {
+                prep.setString(2, "Accettato");
+            } else {
+
+                prep.setString(2, "Rifiutato");
+            }
+
             prep.executeUpdate();
-            System.out.println("Modificazion fatta!");
+            System.out.println("Modificazione fatta!");
         } catch (SQLException ex) {
             System.out.println("C'è stato un problema durante la modificazione!");
         }

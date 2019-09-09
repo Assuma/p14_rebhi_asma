@@ -21,6 +21,14 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+/**
+ * 
+ * @author assma
+ */
+
+/**
+ *Classe per l'autenticazione degli studenti e dei docenti
+ */
 public class LoginMemberController implements Initializable {
 
     @FXML
@@ -36,11 +44,14 @@ public class LoginMemberController implements Initializable {
         return idCnx;
     }
 
+     /**
+     * Initializes the controller class.
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }
-
+    //L'autenticazione tramite email e la password dell'utente
     @FXML
     private void DoLogin(ActionEvent event) throws SQLException, IOException {
 
@@ -60,6 +71,7 @@ public class LoginMemberController implements Initializable {
             user.setPassword(rest2.getString(8));
         }
         idCnx = user.getMatricola();
+        //se l'attribute AnnoST e' pieno,visualizza l'interfaccia dello studente 
         if (login.getText().equals(user.getEmail()) && password.getText().equals(user.getPassword())) {
             if (annoST != null) {
                 Parent page1 = FXMLLoader.load(getClass().getResource("/views/SpazioStudente.fxml"));
@@ -67,6 +79,7 @@ public class LoginMemberController implements Initializable {
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 stage.setScene(scene);
                 stage.show();
+        //se l'attribute AnnoST e' vuoto ,visualizza l'interfaccia del docente 
             } else {
                 Parent page1 = FXMLLoader.load(getClass().getResource("/views/SpazioProf.fxml"));
                 Scene scene = new Scene(page1);
@@ -74,6 +87,7 @@ public class LoginMemberController implements Initializable {
                 stage.setScene(scene);
                 stage.show();
             }
+            //visualizza un messaggio d'errore se i credenziali sono sbagliati
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("ERROR");
@@ -83,7 +97,7 @@ public class LoginMemberController implements Initializable {
         }
 
     }
-    
+    //Tornare alla pagina precedente(HomePage)
      @FXML
     private void retour(ActionEvent event) throws IOException {
         Parent page1 = FXMLLoader.load(getClass().getResource("/views/MainPage.fxml"));

@@ -33,6 +33,14 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import servizio.Service;
 
+/**
+ * 
+ * @author assma
+ */
+
+/**
+ *Class Consultare corsi:Cercare un insegnamento e visualizzare il nome , la description, cfu 
+ */
 
 public class ConsultareCorsiController implements Initializable {
 
@@ -47,13 +55,11 @@ public class ConsultareCorsiController implements Initializable {
     @FXML
     private TableColumn<Insegnamento, String> coeff;
 
-                public ObservableList<Insegnamento>data=FXCollections.observableArrayList();
+    public ObservableList<Insegnamento>data=FXCollections.observableArrayList();
     @FXML
     private TextField inputRechercher;
 
-    /**
-     * Initializes the controller class.
-     */
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
          try {
@@ -95,7 +101,7 @@ public class ConsultareCorsiController implements Initializable {
 
     
     }    
-
+    //Tornare all'interfaccia precedente(Home)
     @FXML
     private void retour(ActionEvent event) throws IOException {
          Parent page1 = FXMLLoader.load(getClass().getResource("/views/MainPage.fxml"));
@@ -104,7 +110,7 @@ public class ConsultareCorsiController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
-
+    //Cercare un corso di studio 
     @FXML
     private void Rechercher(ActionEvent event) {
        

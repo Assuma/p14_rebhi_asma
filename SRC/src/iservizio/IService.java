@@ -8,8 +8,14 @@ import entità.Prenotazione;
 import entità.Studente;
 import java.sql.SQLException;
 import java.util.List;
+/**
+ * 
+ * @author assma
+ */
 
-
+/**
+ * Interface:IService 
+ */
 public interface IService {
     
     List<Studente> listAllStudents();

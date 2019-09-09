@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>MyDB.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;progettoJava&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">connessione_al_database</a> &gt; <span class="el_source">MyDB.java</span></div><h1>MyDB.java</h1><pre class="source lang-java linenums">package connessione_al_database;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+/**
+ * 
+ * @author assma
+ */
+
+
+/**
+ * Classe:MyBD
+ * La connessione al database
+ */
+
+
+public class MyDB {
+
+     static MyDB instance;
+     String url;
+<span class="fc" id="L23">     String login = &quot;asma&quot;;</span>
+<span class="fc" id="L24">     String pwd = &quot;asma&quot;;</span>
+     
+     Connection con;
+     
+     @SuppressWarnings(&quot;empty-statement&quot;)
+     private MyDB()
+<span class="fc" id="L30">     {</span>
+<span class="fc" id="L31">        this.url = &quot;jdbc:mysql://localhost:3306/database&quot;;</span>
+
+         try
+         {
+            
+<span class="fc" id="L36">             con = DriverManager.getConnection(url, login, pwd);</span>
+<span class="fc" id="L37">             System.out.println(&quot;Connessione OK!!&quot;);</span>
+         }
+<span class="nc" id="L39">         catch(SQLException ex)</span>
+                 {
+                    // System.out.println(&quot;Problema di connessione!&quot;+ex);
+<span class="fc" id="L42">                 }</span>
+<span class="fc" id="L43">     }</span>
+
+
+    public Connection getConnexion() {
+<span class="fc" id="L47">        return con ; </span>
+    }
+
+    public static connessione_al_database.MyDB getInstance() {
+<span class="fc bfc" id="L51" title="All 2 branches covered.">        if(instance==null)</span>
+        {
+<span class="fc" id="L53">            instance = new MyDB();</span>
+        }
+<span class="fc" id="L55">        return instance;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

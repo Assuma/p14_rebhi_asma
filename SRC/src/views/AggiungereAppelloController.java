@@ -1,4 +1,3 @@
-
 package views;
 
 import connessione_al_database.MyDB;
@@ -28,6 +27,16 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import servizio.Service;
 
+/**
+ * 
+ * @author assma
+ */
+
+/**
+ *Aggiungere/Creare un appello per un esame mettendo gli informazioni necessari per l'esame
+ * (l'aula, la data, la durata, la materia e la descrizione)
+ */
+
 
 public class AggiungereAppelloController implements Initializable {
 
@@ -45,7 +54,7 @@ public class AggiungereAppelloController implements Initializable {
    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       
+       //estrarre i nomi degli insegnamenti per usarli nel camboBox
         try
         {
             
@@ -64,7 +73,7 @@ public class AggiungereAppelloController implements Initializable {
         
      
     }
-
+   //Tornare nell'interfaccia precedente
     @FXML
     private void Back(ActionEvent event) throws IOException {
         Parent page1 = FXMLLoader.load(getClass().getResource("/views/SpazioProf.fxml"));
@@ -73,7 +82,7 @@ public class AggiungereAppelloController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
-
+   //inserire gli informazioni per aggiungere un nuovo appello
     @FXML
     private void AggiungiEsame(ActionEvent event) throws ParseException {
         Appello app = new Appello();

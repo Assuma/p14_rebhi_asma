@@ -3,29 +3,47 @@ package entità;
 import java.util.Date;
 import java.util.List;
 
+/** 
+ * @author assma
+ */
+
+
+/**
+ * Classe:CorsoDiStudio
+ * contiene il codice, il nome e l'anno scolastico del corso di studio
+ */
 public class CorsoDiStudio {
 
-  
-   
+   /** Attributes */
     private int codice;
     private String nome;
     private Date annoScolastico;
+   /** Associations */
     private List<Studente> listStudente;
     private List<Insegnamento> insegnamentos;
     
+    
+    
+    /** 
+     * Costruttore con parametri
+     * @param codice
+     * @param nome
+     */
     public CorsoDiStudio(int codice, String nome) {
         this.codice = codice;
         this.nome = nome;
  
     }
-
-
-    
-    
+    /** 
+     * Costruttore senza parametri
+     */
     public CorsoDiStudio() {
         super();
     }
 
+    /**
+	 * @return codice
+	 */
     public int getCodice() {
         return this.codice;
     }
@@ -33,7 +51,10 @@ public class CorsoDiStudio {
     public void setCodice(int codice) {
         this.codice = codice;
     }
-
+ 
+    /**
+	 * @return nome
+	 */
     public String getNome() {
         return this.nome;
     }
@@ -41,7 +62,9 @@ public class CorsoDiStudio {
     public void setNome(String nome) {
         this.nome = nome;
     }
-
+    /**
+	 * @return annoScolastico
+	 */
     public Date getAnnoScolastico() {
         return this.annoScolastico;
     }
@@ -49,7 +72,10 @@ public class CorsoDiStudio {
     public void setAnnoScolastico(Date annoScolastico) {
         this.annoScolastico = annoScolastico;
     }
-
+    
+    /**
+	 * @return listStudent
+	 */
     public List<Studente> getListStudente() {
         return listStudente;
     }
@@ -57,7 +83,9 @@ public class CorsoDiStudio {
     public void setListStudente(List<Studente> listStudente) {
         this.listStudente = listStudente;
     }
-
+    /**
+	 * @return insegnamentos
+	 */
     public List<Insegnamento> getInsegnamentos() {
         return insegnamentos;
     }

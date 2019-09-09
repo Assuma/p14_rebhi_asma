@@ -4,6 +4,17 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+/**
+ * 
+ * @author assma
+ */
+
+
+/**
+ * Classe:MyBD
+ * La connessione al database
+ */
+
 
 public class MyDB {
 
@@ -27,15 +38,22 @@ public class MyDB {
          }
          catch(SQLException ex)
                  {
-                     System.out.println("Problema di connessione!"+ex);;
+                    // System.out.println("Problema di connessione!"+ex);
                  }
      }
 
-
+    /**
+     *
+     * @return
+     */
     public Connection getConnexion() {
         return con ; 
     }
 
+    /**
+     *
+     * @return
+     */
     public static connessione_al_database.MyDB getInstance() {
         if(instance==null)
         {

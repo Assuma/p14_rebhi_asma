@@ -1,5 +1,6 @@
 package views;
 
+import com.javafx.main.Main;
 import connessione_al_database.MyDB;
 import entità.Appello;
 import entità.Insegnamento;
@@ -35,6 +36,14 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
 
+/**
+ * 
+ * @author assma
+ */
+
+/**
+ *Inserire il voto dell'esame degli studenti
+ */
 public class InserireVotoController implements Initializable {
 
     @FXML
@@ -48,10 +57,14 @@ public class InserireVotoController implements Initializable {
 
     public ObservableList<Prenotazione> data = FXCollections.observableArrayList();
 
+    
+    /**
+     * Initializes the controller class.
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
-        table.setEditable(true);
+        
+        table.setEditable(true);//dare la possibilita' di inserire il voto
         try {
 
             Service es = new Service();
@@ -114,7 +127,7 @@ public class InserireVotoController implements Initializable {
             alert.setContentText("Il voto è stata inserito");
             alert.show();
             try {
-                Main.Main.getInstance().changescene(new Scene(FXMLLoader.load(getClass().getResource("/views/InserireVoto.fxml"))));
+                Main.getInstance().changescene(new Scene(FXMLLoader.load(getClass().getResource("/views/InserireVoto.fxml"))));
             } catch (IOException ex) {
                 Logger.getLogger(InserireVotoController.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -124,7 +137,7 @@ public class InserireVotoController implements Initializable {
         table.setItems(data);
 
     }
-
+    //Tornare alla pagina precedente (Spazio Prof)
     @FXML
     private void retour(ActionEvent event) throws IOException {
         Parent page1 = FXMLLoader.load(getClass().getResource("/views/SpazioProf.fxml"));

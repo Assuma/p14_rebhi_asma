@@ -25,12 +25,21 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.stage.Stage;
 
+/**
+ * 
+ * @author assma
+ */
+
+/**
+ *Consultare la statistica dai visitors 
+ */
+
 public class ConsultareStatisticheVisitorController implements Initializable {
 
     @FXML
     private PieChart pieChart;
-    @FXML
-    private BarChart<?, ?> barChart;
+//    @FXML
+//    private BarChart<?, ?> barChart;
 
     ObservableList<PieChart.Data> stat = FXCollections.observableArrayList();
 
@@ -43,9 +52,9 @@ public class ConsultareStatisticheVisitorController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         pieChartFunction();
-        barchartFunction();
+        //barchartFunction();
     }
-
+    //Tornare alla pagina precedente(HomePage)
     @FXML
     private void retour(ActionEvent event) throws IOException {
         Parent page1 = FXMLLoader.load(getClass().getResource("/views/MainPage.fxml"));
@@ -55,7 +64,7 @@ public class ConsultareStatisticheVisitorController implements Initializable {
         stage.show();
 
     }
-
+    //Rappresentare il Pie Chart raggrouppata dagli anni di studi  
     void pieChartFunction() {
         try {
 
@@ -78,26 +87,26 @@ public class ConsultareStatisticheVisitorController implements Initializable {
         pieChart.setData(stat);
     }
 
-    void barchartFunction() {
-
-        try {
-
-            MyDB myDB = MyDB.getInstance();
-            Statement stm = myDB.getConnexion().createStatement();
-            ResultSet rest = stm.executeQuery("select i.nome , count(*) from prenotazione p JOIN insegnamento i WHERE  p.voto > 18 and i.codice =(select a.insegnamento_codice from appello a where a.id = p.idAppello )");
-            XYChart.Series set1 = new XYChart.Series<>();
-            List<XYChart.Series> listSet = new ArrayList<>();
-            while (rest.next()) {
-                set1.getData().add(new XYChart.Data(rest.getString(1), rest.getInt(2)));
-                listSet.add(set1);
-            }
-            for (XYChart.Series s : listSet) {
-                barChart.getData().addAll(s);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(VotoEsameController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-    }
+//    void barchartFunction() {
+//
+//        try {
+//
+//            MyDB myDB = MyDB.getInstance();
+//            Statement stm = myDB.getConnexion().createStatement();
+//            ResultSet rest = stm.executeQuery("select i.nome , count(*) from prenotazione p JOIN insegnamento i WHERE  p.voto > 18 and i.codice =(select a.insegnamento_codice from appello a where a.id = p.idAppello )");
+//            XYChart.Series set1 = new XYChart.Series<>();
+//            List<XYChart.Series> listSet = new ArrayList<>();
+//            while (rest.next()) {
+//                set1.getData().add(new XYChart.Data(rest.getString(1), rest.getInt(2)));
+//                listSet.add(set1);
+//            }
+//            for (XYChart.Series s : listSet) {
+//                barChart.getData().addAll(s);
+//            }
+//        } catch (SQLException ex) {
+//            Logger.getLogger(VotoEsameController.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//
+//    }
 
 }

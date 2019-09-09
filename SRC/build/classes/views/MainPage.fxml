@@ -12,8 +12,8 @@
             <Font name="DejaVu Serif Bold" size="26.0" />
          </font>
       </Label>
-      <Button fx:id="voirstatistiqueUserB" layoutX="198.0" layoutY="334.0" mnemonicParsing="false" onAction="#voirstatistiqueUser" prefHeight="50.0" prefWidth="222.0" text="Statistiche" />
+      <Button fx:id="voirstatistiqueUserB" layoutX="198.0" layoutY="334.0" mnemonicParsing="false" onAction="#voirstatistiqueUser" prefHeight="50.0" prefWidth="222.0" text="Statistica" />
       <Button fx:id="voirProgrammeB" layoutX="198.0" layoutY="145.0" mnemonicParsing="false" onAction="#voirProgramme" prefHeight="50.0" prefWidth="222.0" text="Corsi di studi" />
-      <Button fx:id="loginB" layoutX="198.0" layoutY="240.0" mnemonicParsing="false" onAction="#login" prefHeight="50.0" prefWidth="222.0" text="Accesso" />
+      <Button fx:id="loginB" layoutX="198.0" layoutY="240.0" mnemonicParsing="false" onAction="#login" prefHeight="50.0" prefWidth="222.0" text="Login" />
    </children>
 </Pane>

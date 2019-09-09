@@ -3,6 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
+//Test Strutturale della classe appello
+
 package entità;
 
 import java.util.Date;

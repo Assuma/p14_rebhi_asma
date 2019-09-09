@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>PrenotareEsameController.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;progettoJava&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">views</a> &gt; <span class="el_source">PrenotareEsameController.java</span></div><h1>PrenotareEsameController.java</h1><pre class="source lang-java linenums">package views;
+
+import com.sun.prism.impl.Disposer;
+import connessione_al_database.MyDB;
+import entità.Appello;
+import entità.Insegnamento;
+import entità.Studente;
+import java.io.IOException;
+import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
+import javafx.util.Callback;
+import servizio.ButtonCelPrenotazione;
+import servizio.Service;
+
+
+/**
+ * 
+ * @author assma
+ */
+
+/**
+ *Visualizza gli appelli e prenotare l'esame 
+ */
+<span class="fc" id="L50">public class PrenotareEsameController implements Initializable {</span>
+
+    @FXML
+    private TableView&lt;Appello&gt; table;
+    @FXML
+    private TableColumn&lt;Appello, String&gt; nom;
+    @FXML
+    private TableColumn&lt;Appello, String&gt; description;
+    @FXML
+    private TableColumn&lt;Appello, String&gt; coefficient;
+    @FXML
+    private TableColumn&lt;Appello, String&gt; salle;
+    @FXML
+    private TableColumn&lt;Appello, Date&gt; date;
+    @FXML
+    private TableColumn&lt;Appello, String&gt; descAppollo;
+    @FXML
+    private TableColumn&lt;Appello, Double&gt; duree;
+    @FXML
+    private TableColumn&lt;Disposer.Record, Boolean&gt; action;
+
+<span class="fc" id="L71">    public ObservableList&lt;Appello&gt; data = FXCollections.observableArrayList();</span>
+
+    /**
+     * Initializes the controller class.
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+       //Visualizza tutti gli appelli con i dettagli (aula,cfu,data ,..)
+        try {
+<span class="fc" id="L80">            Service es = new Service();</span>
+<span class="fc" id="L81">            Studente etudiant = es.getStudentById(LoginMemberController.getIdCnx());</span>
+
+<span class="fc" id="L83">            Date dateX = new Date();</span>
+<span class="fc" id="L84">            MyDB myDB = MyDB.getInstance();</span>
+<span class="fc" id="L85">            Statement stm = myDB.getConnexion().createStatement();</span>
+<span class="fc" id="L86">            ResultSet rest = stm.executeQuery(&quot;select * from appello i where i.date &gt; CURDate() and NOT EXISTS ( SELECT * from prenotazione u where u.idAppello = i.id and u.idStudente =&quot; + LoginMemberController.getIdCnx() + &quot; )&quot;);</span>
+
+<span class="fc bfc" id="L88" title="All 2 branches covered.">            while (rest.next()) {</span>
+<span class="fc" id="L89">                DateFormat formatter = new SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;);</span>
+<span class="fc" id="L90">                Date date = formatter.parse(rest.getString(3));</span>
+
+<span class="fc" id="L92">                data.add(new Appello(rest.getInt(1), rest.getString(2), date, rest.getString(4), rest.getDouble(5), rest.getInt(6), rest.getInt(7)));</span>
+<span class="fc" id="L93">            }</span>
+
+<span class="nc" id="L95">        } catch (SQLException ex) {</span>
+<span class="nc" id="L96">            Logger.getLogger(Appello.class.getName()).log(Level.SEVERE, null, ex);</span>
+<span class="nc" id="L97">        } catch (ParseException ex) {</span>
+<span class="nc" id="L98">            Logger.getLogger(PrenotareEsameController.class.getName()).log(Level.SEVERE, null, ex);</span>
+<span class="pc" id="L99">        }</span>
+
+<span class="fc" id="L101">        nom.setCellValueFactory(new Callback&lt;TableColumn.CellDataFeatures&lt;Appello, String&gt;, ObservableValue&lt;String&gt;&gt;() {</span>
+            @Override
+            public ObservableValue&lt;String&gt; call(TableColumn.CellDataFeatures&lt;Appello, String&gt; param) {
+<span class="fc" id="L104">                Insegnamento u = new Insegnamento();</span>
+<span class="fc" id="L105">                Service us = new Service();</span>
+
+                try {
+<span class="fc" id="L108">                    u = us.getMateriaById(param.getValue().getInsegnamento());</span>
+<span class="nc" id="L109">                } catch (SQLException ex) {</span>
+<span class="nc" id="L110">                    Logger.getLogger(PrenotareEsameController.class.getName()).log(Level.SEVERE, null, ex);</span>
+<span class="fc" id="L111">                }</span>
+<span class="fc" id="L112">                return new SimpleStringProperty(u.getNome());</span>
+            }
+        });
+
+<span class="fc" id="L116">        description.setCellValueFactory(new Callback&lt;TableColumn.CellDataFeatures&lt;Appello, String&gt;, ObservableValue&lt;String&gt;&gt;() {</span>
+            @Override
+            public ObservableValue&lt;String&gt; call(TableColumn.CellDataFeatures&lt;Appello, String&gt; param) {
+<span class="fc" id="L119">                Insegnamento u = new Insegnamento();</span>
+<span class="fc" id="L120">                Service us = new Service();</span>
+
+                try {
+<span class="fc" id="L123">                    u = us.getMateriaById(param.getValue().getInsegnamento());</span>
+<span class="nc" id="L124">                } catch (SQLException ex) {</span>
+<span class="nc" id="L125">                    Logger.getLogger(PrenotareEsameController.class.getName()).log(Level.SEVERE, null, ex);</span>
+<span class="fc" id="L126">                }</span>
+<span class="fc" id="L127">                return new SimpleStringProperty(u.getDescription());</span>
+            }
+        });
+
+<span class="fc" id="L131">        coefficient.setCellValueFactory(new Callback&lt;TableColumn.CellDataFeatures&lt;Appello, String&gt;, ObservableValue&lt;String&gt;&gt;() {</span>
+            @Override
+            public ObservableValue&lt;String&gt; call(TableColumn.CellDataFeatures&lt;Appello, String&gt; param) {
+<span class="fc" id="L134">                Insegnamento u = new Insegnamento();</span>
+<span class="fc" id="L135">                Service us = new Service();</span>
+
+                try {
+<span class="fc" id="L138">                    u = us.getMateriaById(param.getValue().getInsegnamento());</span>
+<span class="nc" id="L139">                } catch (SQLException ex) {</span>
+<span class="nc" id="L140">                    Logger.getLogger(PrenotareEsameController.class.getName()).log(Level.SEVERE, null, ex);</span>
+<span class="fc" id="L141">                }</span>
+<span class="fc" id="L142">                return new SimpleStringProperty(&quot;&quot; + u.getCfu());</span>
+            }
+        });
+
+<span class="fc" id="L146">        salle.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;aula&quot;));</span>
+<span class="fc" id="L147">        date.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;date&quot;));</span>
+<span class="fc" id="L148">        descAppollo.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;description&quot;));</span>
+<span class="fc" id="L149">        duree.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;durata&quot;));</span>
+
+        //conferma la prenotazione per un esame
+<span class="fc" id="L152">        action.setCellValueFactory(</span>
+<span class="fc" id="L153">                new Callback&lt;TableColumn.CellDataFeatures&lt;Disposer.Record, Boolean&gt;, ObservableValue&lt;Boolean&gt;&gt;() {</span>
+
+            @Override
+            public ObservableValue&lt;Boolean&gt; call(TableColumn.CellDataFeatures&lt;Disposer.Record, Boolean&gt; p) {
+<span class="pc bpc" id="L157" title="1 of 2 branches missed.">                return new SimpleBooleanProperty(p.getValue() != null);</span>
+            }
+        });
+
+        //Adding the Button to the cell
+<span class="fc" id="L162">        action.setCellFactory(new Callback&lt;TableColumn&lt;Disposer.Record, Boolean&gt;, TableCell&lt;Disposer.Record, Boolean&gt;&gt;() {</span>
+
+            @Override
+            public TableCell&lt;Disposer.Record, Boolean&gt; call(TableColumn&lt;Disposer.Record, Boolean&gt; p) {
+<span class="fc" id="L166">                return new ButtonCelPrenotazione();</span>
+
+            }
+
+        });
+
+<span class="fc" id="L172">        table.setItems(data);</span>
+
+<span class="fc" id="L174">    }</span>
+//Tornare alla pagina precedente
+    @FXML
+    private void retour(ActionEvent event) throws IOException {
+<span class="fc" id="L178">        Parent page1 = FXMLLoader.load(getClass().getResource(&quot;/views/SpazioStudente.fxml&quot;));</span>
+<span class="fc" id="L179">        Scene scene = new Scene(page1);</span>
+<span class="fc" id="L180">        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();</span>
+<span class="fc" id="L181">        stage.setScene(scene);</span>
+<span class="fc" id="L182">        stage.show();</span>
+<span class="fc" id="L183">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

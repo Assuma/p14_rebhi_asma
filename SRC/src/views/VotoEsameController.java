@@ -1,5 +1,6 @@
 package views;
 
+import com.javafx.main.Main;
 import connessione_al_database.MyDB;
 import entità.Appello;
 import entità.Docente;
@@ -31,7 +32,6 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
-import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
@@ -44,6 +44,15 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import servizio.ButtonCellPianoSt;
 import servizio.Service;
+
+/**
+ * 
+ * @author assma
+ */
+
+/**
+ *Accettare/rifuitare un esame
+ */
 
 public class VotoEsameController implements Initializable {
 
@@ -82,12 +91,12 @@ public class VotoEsameController implements Initializable {
 
     /**
      * Initializes the controller class.
+     * @param url
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         labelMoyene.setVisible(false);
-        StatFunction();
-        barFunction();
+        // StatFunction();
         try {
             Service es = new Service();
 
@@ -144,7 +153,7 @@ public class VotoEsameController implements Initializable {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<Prenotazione, String> param) {
                 String msg = "";
-                if (Integer.parseInt(param.getValue().getVoto()) < 18) {
+                if (Integer.parseInt(param.getValue().getVoto()) < 18 || param.getValue().getStato().equals("Rifiutato")) {
                     msg = "Rifiutato";
                 } else {
                     msg = "Accettato";
@@ -156,7 +165,7 @@ public class VotoEsameController implements Initializable {
         table.setItems(data);
 
     }
-
+//Tornare alla pagina precedente(spazio dello studente)
     @FXML
     private void retour(ActionEvent event) throws IOException {
 
@@ -167,6 +176,7 @@ public class VotoEsameController implements Initializable {
         stage.show();
     }
 
+    //Confermare l'azione(rifiuto/accettazione)di un voto
     @FXML
     private void DoThat(ContextMenuEvent event) {
         //  System.out.println(table.getSelectionModel().getSelectedItem().toString());
@@ -177,11 +187,11 @@ public class VotoEsameController implements Initializable {
 
         MenuItem Accepter = new MenuItem("Accettare");
         MenuItem refuser = new MenuItem("Rifiutare");
-
-        if (p.getStato().equals("In Corso")) {
-            contextMenu.getItems().add(Accepter);
-            contextMenu.getItems().add(refuser);
-        }
+//
+//        if (p.getStato().equals("In Corso")) {
+//            //contextMenu.getItems().add(Accepter);
+//            contextMenu.getItems().add(refuser);
+//        }
         if (p.getStato().equals("Rifiutato")) {
             contextMenu.getItems().remove(refuser);
             // contextMenu.getItems().add(Accepter);
@@ -193,25 +203,26 @@ public class VotoEsameController implements Initializable {
         table.setContextMenu(contextMenu);
 
         Service l = new Service();
-
-        Accepter.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-
-                l.ModificareStatoAccettato(p.getPrenotazionePK());
-                try {
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Informazioni");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Il voto è stato confermato con successo");
-                    alert.show();
-                    Main.Main.getInstance().changescene(new Scene(FXMLLoader.load(getClass().getResource("/views/VotoEsame.fxml"))));
-                } catch (IOException ex) {
-                    Logger.getLogger(ButtonCellPianoSt.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        });
-
+        
+//accettare un esame
+//        Accepter.setOnAction(new EventHandler<ActionEvent>() {
+//            @Override
+//            public void handle(ActionEvent event) {
+//
+//                l.ModificareStatoAccettato(p.getPrenotazionePK());
+//                try {
+//                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+//                    alert.setTitle("Informazioni");
+//                    alert.setHeaderText(null);
+//                    alert.setContentText("Il voto è stato confermato con successo");
+//                    alert.show();
+//                    Main.getInstance().changescene(new Scene(FXMLLoader.load(getClass().getResource("/views/VotoEsame.fxml"))));
+//                } catch (IOException ex) {
+//                    Logger.getLogger(ButtonCellPianoSt.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//            }
+//        });
+//rifiutare un esame
         refuser.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -223,14 +234,14 @@ public class VotoEsameController implements Initializable {
                     alert.setHeaderText(null);
                     alert.setContentText("Il voto è stato rifiutata con successo");
                     alert.show();
-                    Main.Main.getInstance().changescene(new Scene(FXMLLoader.load(getClass().getResource("/views/VotoEsame.fxml"))));
+                    Main.getInstance().changescene(new Scene(FXMLLoader.load(getClass().getResource("/views/VotoEsame.fxml"))));
                 } catch (IOException ex) {
                     Logger.getLogger(ButtonCellPianoSt.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });
     }
-
+//calcolare la media dello studente
     @FXML
     private void moyenneEtudiant(ActionEvent event) {
         List<Prenotazione> list = new ArrayList<>();
@@ -251,46 +262,28 @@ public class VotoEsameController implements Initializable {
 
     }
 
-    void StatFunction() {
-        try {
-
-            MyDB myDB = MyDB.getInstance();
-            Statement stm = myDB.getConnexion().createStatement();
-            ResultSet rest = stm.executeQuery("select stato , voto from prenotazione GROUP BY stato");
-
-            while (rest.next()) {
-                libelle.add(rest.getString("stato"));
-                quantiteDispo.add(rest.getInt("voto"));
-                stat.add(new PieChart.Data(rest.getString("stato"), rest.getInt("voto")));
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(VotoEsameController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        statEtudiant.setAnimated(true);
-
-        statEtudiant.maxHeight(1000);
-        statEtudiant.setData(stat);
-
-    }
-
-    void barFunction() {
-
-        try {
-
-            MyDB myDB = MyDB.getInstance();
-            Statement stm = myDB.getConnexion().createStatement();
-            ResultSet rest = stm.executeQuery("select i.nome , p.voto from prenotazione p JOIN insegnamento i WHERE p.voto != -1 and i.codice =(select a.insegnamento_codice from appello a where a.id = p.idAppello ) and p.idStudente =" + LoginMemberController.getIdCnx() + "");
-
-            while (rest.next()) {
-                XYChart.Series set1 = new XYChart.Series<>();
-                set1.getData().add(new XYChart.Data(rest.getString(1), rest.getInt(2)));
-                barStat.getData().addAll(set1);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(VotoEsameController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-    }
+//    //visualizzare la statistica degli esami
+//    void StatFunction() {
+//        try {
+//
+//            MyDB myDB = MyDB.getInstance();
+//            Statement stm = myDB.getConnexion().createStatement();
+//            ResultSet rest = stm.executeQuery("select stato , voto from prenotazione group by stato");
+//
+//            while (rest.next()) {
+//                libelle.add(rest.getString("stato"));
+//                quantiteDispo.add(rest.getInt("voto"));
+//                stat.add(new PieChart.Data(rest.getString("stato"), rest.getInt("voto")));
+//            }
+//        } catch (SQLException ex) {
+//            Logger.getLogger(VotoEsameController.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//
+//        statEtudiant.setAnimated(true);
+//
+//        statEtudiant.maxHeight(1000);
+//        statEtudiant.setData(stat);
+//
+//    }
 
 }

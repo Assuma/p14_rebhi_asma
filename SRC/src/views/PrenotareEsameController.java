@@ -38,6 +38,15 @@ import javafx.util.Callback;
 import servizio.ButtonCelPrenotazione;
 import servizio.Service;
 
+
+/**
+ * 
+ * @author assma
+ */
+
+/**
+ *Visualizza gli appelli e prenotare l'esame 
+ */
 public class PrenotareEsameController implements Initializable {
 
     @FXML
@@ -66,6 +75,7 @@ public class PrenotareEsameController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+       //Visualizza tutti gli appelli con i dettagli (aula,cfu,data ,..)
         try {
             Service es = new Service();
             Studente etudiant = es.getStudentById(LoginMemberController.getIdCnx());
@@ -138,6 +148,7 @@ public class PrenotareEsameController implements Initializable {
         descAppollo.setCellValueFactory(new PropertyValueFactory<>("description"));
         duree.setCellValueFactory(new PropertyValueFactory<>("durata"));
 
+        //conferma la prenotazione per un esame
         action.setCellValueFactory(
                 new Callback<TableColumn.CellDataFeatures<Disposer.Record, Boolean>, ObservableValue<Boolean>>() {
 
@@ -161,7 +172,7 @@ public class PrenotareEsameController implements Initializable {
         table.setItems(data);
 
     }
-
+//Tornare alla pagina precedente
     @FXML
     private void retour(ActionEvent event) throws IOException {
         Parent page1 = FXMLLoader.load(getClass().getResource("/views/SpazioStudente.fxml"));

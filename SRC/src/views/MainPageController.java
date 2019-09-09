@@ -18,6 +18,15 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 
+/**
+ * 
+ * @author assma
+ */
+
+/**
+ *La home page dove ci sono 3 pulsante per fare Login-consultare la Statistica e cercare i corsi di studi
+ */
+
 public class MainPageController implements Initializable {
 
     @FXML
@@ -37,7 +46,7 @@ public class MainPageController implements Initializable {
         // TODO
 
     }
-
+    //Visualizza la pagina per la statistica
     @FXML
     private void voirstatistiqueUser(ActionEvent event) {
        try{
@@ -55,13 +64,11 @@ public class MainPageController implements Initializable {
         Logger.getLogger(MainPageController.class.getName()).log(Level.SEVERE,
                 null, ex);
     }
-       
-       
-       
+             
 }
 
     
-
+    //Visualizza la pagina per cercare i corsi di studi
     @FXML
         private void voirProgramme(ActionEvent event) {
             
@@ -73,15 +80,12 @@ public class MainPageController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
-    catch (IOException ex
-
-    
-        ) {
+    catch (IOException ex ) {
         Logger.getLogger(MainPageController.class.getName()).log(Level.SEVERE,
                 null, ex);
     }
     }
-
+   //Visualizza l'interfaccia dell'autenticazione
     @FXML
         private void login(ActionEvent event) {
             
@@ -93,10 +97,7 @@ public class MainPageController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
-    catch (IOException ex
-
-    
-        ) {
+    catch (IOException ex) {
         Logger.getLogger(MainPageController.class.getName()).log(Level.SEVERE,
                 null, ex);
     }

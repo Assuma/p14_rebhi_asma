@@ -1,0 +1,470 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Service.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;progettoJava&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">servizio</a> &gt; <span class="el_source">Service.java</span></div><h1>Service.java</h1><pre class="source lang-java linenums">package servizio;
+
+import connessione_al_database.MyDB;
+import entità.Appello;
+import entità.CorsoDiStudio;
+import entità.Docente;
+import entità.Insegnamento;
+import entità.Prenotazione;
+import entità.Studente;
+import enumerations.AnnoDiStudi;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import views.LoginMemberController;
+
+/**
+ * 
+ * @author assma
+ */
+
+/**
+ *Implementare i queri dei servizi/funzioni dichiarati nell'interfaccia IService
+ */
+
+
+public class Service implements iservizio.IService {
+
+    MyDB myDB;
+
+<span class="fc" id="L35">    public Service() {</span>
+<span class="fc" id="L36">        myDB = MyDB.getInstance();</span>
+<span class="fc" id="L37">    }</span>
+
+    @Override
+    public List&lt;Studente&gt; listAllStudents() {
+<span class="nc" id="L41">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;); //To change body of generated methods, choose Tools | Templates.</span>
+    }
+
+    @Override
+    public Studente getStudentById(int id) throws SQLException {
+<span class="fc" id="L46">        Studente bp = new Studente();</span>
+
+<span class="fc" id="L48">        Statement stm = myDB.getConnexion().createStatement();</span>
+<span class="fc" id="L49">        ResultSet rest = stm.executeQuery(&quot;select * from utente where matricola =&quot; + id + &quot;&quot;);</span>
+
+<span class="fc bfc" id="L51" title="All 2 branches covered.">        while (rest.next()) {</span>
+<span class="fc" id="L52">            bp.setMatricola(rest.getInt(2));</span>
+<span class="fc" id="L53">            System.out.println(rest.getInt(1));</span>
+<span class="fc" id="L54">            bp.setCellulare(rest.getString(3));</span>
+<span class="fc" id="L55">            System.out.println(rest.getInt(2));</span>
+<span class="fc" id="L56">            bp.setCognome(rest.getString(4));</span>
+<span class="fc" id="L57">            System.out.println(rest.getString(3));</span>
+<span class="fc" id="L58">            bp.setEmail(rest.getString(5));</span>
+<span class="fc" id="L59">            System.out.println(rest.getString(4));</span>
+<span class="fc" id="L60">            bp.setIndirizzo(rest.getString(6));</span>
+<span class="fc" id="L61">            System.out.println(rest.getString(5));</span>
+<span class="fc" id="L62">            bp.setNome(rest.getString(7));</span>
+<span class="fc" id="L63">            System.out.println(rest.getString(6));</span>
+<span class="fc" id="L64">            bp.setPassword(rest.getString(8));</span>
+<span class="fc" id="L65">            System.out.println(rest.getString(7));</span>
+<span class="fc" id="L66">            bp.setAnnoSt(AnnoDiStudi.valueOf(rest.getString(9)));</span>
+            // bp.set(rest.getInt(9));
+            // bp.setCorsoDiStudio(rest.getInt(10));   
+
+        }
+<span class="fc" id="L71">        return bp;</span>
+
+    }
+
+    @Override
+    public void ModificareStudent(int id, Studente prod) {
+
+        try {
+
+            PreparedStatement prep;
+<span class="fc" id="L81">            myDB = MyDB.getInstance();</span>
+            String req;
+<span class="fc" id="L83">            req = &quot;UPDATE `utente` SET  `cellulare` = ? , `cognome` = ?, `email` = ?, `indirizzo` =?, `nome` = ?, `password` = ? WHERE matricola = &quot; + id + &quot;&quot;;</span>
+
+<span class="fc" id="L85">            prep = myDB.getConnexion().prepareStatement(req);</span>
+
+            // prep.setInt(1, prod.getId());
+<span class="fc" id="L88">            prep.setString(1, prod.getCellulare());</span>
+<span class="fc" id="L89">            prep.setString(2, prod.getCognome());</span>
+<span class="fc" id="L90">            prep.setString(3, prod.getEmail());</span>
+<span class="fc" id="L91">            prep.setString(4, prod.getIndirizzo());</span>
+<span class="fc" id="L92">            prep.setString(5, prod.getNome());</span>
+<span class="fc" id="L93">            prep.setString(6, prod.getPassword());</span>
+
+<span class="fc" id="L95">            prep.executeUpdate();</span>
+<span class="fc" id="L96">            System.out.println(&quot;Modificazione fatta!&quot;);</span>
+<span class="nc" id="L97">        } catch (SQLException ex) {</span>
+<span class="nc" id="L98">            System.out.println(&quot;C'è stato un problema durante la modificazione!&quot;);</span>
+<span class="fc" id="L99">        }</span>
+
+<span class="fc" id="L101">    }</span>
+
+    @Override
+    public void getMateria(Insegnamento mat) {
+
+        try {
+<span class="fc" id="L107">            Statement stm = myDB.getConnexion().createStatement();</span>
+<span class="fc" id="L108">            String query = &quot;INSERT INTO `insegnamento_utente` (`listInsegnamento_codice`, `listUtente_matricola`) VALUES (&quot; + mat.getCodice() + &quot;, &quot; + LoginMemberController.getIdCnx() + &quot;);&quot;;</span>
+<span class="fc" id="L109">            stm.executeUpdate(query);</span>
+<span class="nc" id="L110">        } catch (SQLException ex) {</span>
+<span class="nc" id="L111">            Logger.getLogger(Service.class.getName()).log(Level.SEVERE, null, ex);</span>
+<span class="fc" id="L112">        }</span>
+
+<span class="fc" id="L114">    }</span>
+
+    @Override
+    public Insegnamento getMateriaById(int id) throws SQLException {
+
+<span class="fc" id="L119">        Insegnamento bp = new Insegnamento();</span>
+<span class="fc" id="L120">        Statement stm = myDB.getConnexion().createStatement();</span>
+<span class="fc" id="L121">        ResultSet rest = stm.executeQuery(&quot;select * from insegnamento where codice =&quot; + id + &quot;&quot;);</span>
+
+<span class="fc bfc" id="L123" title="All 2 branches covered.">        while (rest.next()) {</span>
+<span class="fc" id="L124">            bp.setCodice(rest.getInt(1));</span>
+<span class="fc" id="L125">            bp.setAnnoDiStudi(AnnoDiStudi.valueOf(rest.getString(2)));</span>
+<span class="fc" id="L126">            bp.setCfu(rest.getInt(3));</span>
+<span class="fc" id="L127">            bp.setDescription(rest.getString(4));</span>
+<span class="fc" id="L128">            bp.setNome(rest.getString(5));</span>
+
+        }
+<span class="fc" id="L131">        return bp;</span>
+
+    }
+
+    @Override
+    public void PrenotareEsame(int idAppello) {
+
+        try {
+<span class="fc" id="L139">            Statement stm = myDB.getConnexion().createStatement();</span>
+<span class="fc" id="L140">            String query = &quot;INSERT INTO `prenotazione` (`idAppello`, `idStudente`, `voto`,`stato`) VALUES (&quot; + idAppello + &quot;, &quot; + LoginMemberController.getIdCnx() + &quot;,-1,'In Corso');&quot;;</span>
+<span class="fc" id="L141">            stm.executeUpdate(query);</span>
+<span class="nc" id="L142">        } catch (SQLException ex) {</span>
+<span class="nc" id="L143">            Logger.getLogger(Service.class.getName()).log(Level.SEVERE, null, ex);</span>
+<span class="fc" id="L144">        }</span>
+
+<span class="fc" id="L146">    }</span>
+
+    @Override
+    public void AggiungereAppello(Appello app) {
+
+        try {
+
+<span class="fc" id="L153">            Statement stm = myDB.getConnexion().createStatement();</span>
+<span class="fc" id="L154">            String query = &quot;INSERT INTO `appello` (`aula`, `date`, `description`, `durata`, `docente_matricola`, `insegnamento_codice`) VALUES ('&quot; + app.getAula() + &quot;', '&quot; + app.getDate() + &quot;', '&quot; + app.getDescription() + &quot;', &quot; + app.getDurata() + &quot;, &quot; + app.getDocente() + &quot;, &quot; + app.getInsegnamento() + &quot;);&quot;;</span>
+<span class="fc" id="L155">            stm.executeUpdate(query);</span>
+<span class="fc" id="L156">            System.out.println(&quot;Esame inserito!&quot;);</span>
+<span class="nc" id="L157">        } catch (SQLException ex) {</span>
+<span class="nc" id="L158">            Logger.getLogger(Service.class.getName()).log(Level.SEVERE, null, ex);</span>
+<span class="fc" id="L159">        }</span>
+
+<span class="fc" id="L161">    }</span>
+
+    @Override
+    public int getIDMateriaByNome(String nom) {
+
+<span class="fc" id="L166">        int a = 0;</span>
+
+        try {
+<span class="fc" id="L169">            Statement stm = myDB.getConnexion().createStatement();</span>
+<span class="fc" id="L170">            ResultSet rest = stm.executeQuery(&quot;select codice from insegnamento where nome ='&quot; + nom + &quot;'&quot;);</span>
+
+<span class="fc bfc" id="L172" title="All 2 branches covered.">            while (rest.next()) {</span>
+<span class="fc" id="L173">                a = rest.getInt(1);</span>
+            }
+
+<span class="nc" id="L176">        } catch (SQLException ex) {</span>
+<span class="nc" id="L177">            Logger.getLogger(Service.class.getName()).log(Level.SEVERE, null, ex);</span>
+<span class="fc" id="L178">        }</span>
+
+<span class="fc" id="L180">        return a;</span>
+    }
+
+    @Override
+    public CorsoDiStudio getSpecialitaById(int id) {
+
+<span class="fc" id="L186">        CorsoDiStudio bp = new CorsoDiStudio();</span>
+
+        Statement stm;
+        try {
+<span class="fc" id="L190">            stm = myDB.getConnexion().createStatement();</span>
+<span class="fc" id="L191">            ResultSet rest = stm.executeQuery(&quot;select * from corsodistudio where codice =&quot; + id + &quot;&quot;);</span>
+
+<span class="fc bfc" id="L193" title="All 2 branches covered.">            while (rest.next()) {</span>
+<span class="fc" id="L194">                bp.setCodice(rest.getInt(1));</span>
+<span class="fc" id="L195">                bp.setAnnoScolastico(rest.getDate(2));</span>
+<span class="fc" id="L196">                bp.setNome(rest.getString(3));</span>
+
+            }
+<span class="nc" id="L199">        } catch (SQLException ex) {</span>
+<span class="nc" id="L200">            Logger.getLogger(Service.class.getName()).log(Level.SEVERE, null, ex);</span>
+<span class="fc" id="L201">        }</span>
+
+<span class="fc" id="L203">        return bp;</span>
+
+    }
+
+    @Override
+    public Insegnamento getMateriaByIdAppello(int id) {
+
+<span class="fc" id="L210">        int idMat = 0;</span>
+<span class="fc" id="L211">        Insegnamento bp = new Insegnamento();</span>
+
+        ResultSet rest;
+        try {
+<span class="fc" id="L215">            Statement stm = myDB.getConnexion().createStatement();</span>
+<span class="fc" id="L216">            rest = stm.executeQuery(&quot;select * from appello where id =&quot; + id + &quot;&quot;);</span>
+<span class="fc bfc" id="L217" title="All 2 branches covered.">            while (rest.next()) {</span>
+
+<span class="fc" id="L219">                idMat = rest.getInt(7);</span>
+            }
+<span class="fc" id="L221">            bp = getMateriaById(idMat);</span>
+<span class="nc" id="L222">        } catch (SQLException ex) {</span>
+<span class="nc" id="L223">            Logger.getLogger(Service.class.getName()).log(Level.SEVERE, null, ex);</span>
+<span class="fc" id="L224">        }</span>
+
+<span class="fc" id="L226">        return bp;</span>
+
+    }
+
+    @Override
+    public void ModificareVoto(int id, double note) {
+
+        try {
+
+            PreparedStatement prep;
+<span class="fc" id="L236">            myDB = MyDB.getInstance();</span>
+            String req;
+<span class="fc" id="L238">            req = &quot;UPDATE `prenotazione` SET  `voto` = ? , stato = ? WHERE id = &quot; + id + &quot;&quot;;</span>
+<span class="fc" id="L239">            prep = myDB.getConnexion().prepareStatement(req);</span>
+<span class="fc" id="L240">            prep.setDouble(1, note);</span>
+<span class="fc bfc" id="L241" title="All 2 branches covered.">            if (note &gt;= 18) {</span>
+<span class="fc" id="L242">                prep.setString(2, &quot;Accettato&quot;);</span>
+            } else {
+
+<span class="fc" id="L245">                prep.setString(2, &quot;Rifiutato&quot;);</span>
+            }
+
+<span class="fc" id="L248">            prep.executeUpdate();</span>
+<span class="fc" id="L249">            System.out.println(&quot;Modificazione fatta!&quot;);</span>
+<span class="nc" id="L250">        } catch (SQLException ex) {</span>
+<span class="nc" id="L251">            System.out.println(&quot;C'è stato un problema durante la modificazione!&quot;);</span>
+<span class="fc" id="L252">        }</span>
+
+<span class="fc" id="L254">    }</span>
+
+    @Override
+    public Docente getProfByIdAppello(int id) {
+
+<span class="fc" id="L259">        int idMat = 0;</span>
+<span class="fc" id="L260">        Docente bp = new Docente();</span>
+
+        ResultSet rest;
+        try {
+<span class="fc" id="L264">            Statement stm = myDB.getConnexion().createStatement();</span>
+<span class="fc" id="L265">            rest = stm.executeQuery(&quot;select * from appello where id =&quot; + id + &quot;&quot;);</span>
+<span class="fc bfc" id="L266" title="All 2 branches covered.">            while (rest.next()) {</span>
+
+<span class="fc" id="L268">                idMat = rest.getInt(6);</span>
+            }
+<span class="fc" id="L270">            bp = getProfById(idMat);</span>
+<span class="nc" id="L271">        } catch (SQLException ex) {</span>
+<span class="nc" id="L272">            Logger.getLogger(Service.class.getName()).log(Level.SEVERE, null, ex);</span>
+<span class="fc" id="L273">        }</span>
+
+<span class="fc" id="L275">        return bp;</span>
+
+    }
+
+    @Override
+    public Docente getProfById(int id) throws SQLException {
+
+<span class="fc" id="L282">        Docente bp = new Docente();</span>
+
+        Statement stm;
+        try {
+<span class="fc" id="L286">            stm = myDB.getConnexion().createStatement();</span>
+<span class="fc" id="L287">            ResultSet rest = stm.executeQuery(&quot;select * from utente where matricola =&quot; + id + &quot;&quot;);</span>
+
+<span class="fc bfc" id="L289" title="All 2 branches covered.">            while (rest.next()) {</span>
+<span class="fc" id="L290">                bp.setMatricola(rest.getInt(2));</span>
+<span class="fc" id="L291">                System.out.println(rest.getInt(1));</span>
+<span class="fc" id="L292">                bp.setCellulare(rest.getString(3));</span>
+<span class="fc" id="L293">                System.out.println(rest.getInt(2));</span>
+<span class="fc" id="L294">                bp.setCognome(rest.getString(4));</span>
+<span class="fc" id="L295">                System.out.println(rest.getString(3));</span>
+<span class="fc" id="L296">                bp.setEmail(rest.getString(5));</span>
+<span class="fc" id="L297">                System.out.println(rest.getString(4));</span>
+<span class="fc" id="L298">                bp.setIndirizzo(rest.getString(6));</span>
+<span class="fc" id="L299">                System.out.println(rest.getString(5));</span>
+<span class="fc" id="L300">                bp.setNome(rest.getString(7));</span>
+<span class="fc" id="L301">                System.out.println(rest.getString(6));</span>
+<span class="fc" id="L302">                bp.setPassword(rest.getString(8));</span>
+<span class="fc" id="L303">                System.out.println(rest.getString(7));</span>
+
+            }
+<span class="nc" id="L306">        } catch (SQLException ex) {</span>
+<span class="nc" id="L307">            Logger.getLogger(Service.class.getName()).log(Level.SEVERE, null, ex);</span>
+<span class="fc" id="L308">        }</span>
+
+<span class="fc" id="L310">        return bp;</span>
+
+    }
+
+    @Override
+    public Appello getAppelloById(int id) {
+
+<span class="fc" id="L317">        Appello bp = new Appello();</span>
+
+        ResultSet rest;
+        try {
+<span class="fc" id="L321">            Statement stm = myDB.getConnexion().createStatement();</span>
+<span class="fc" id="L322">            rest = stm.executeQuery(&quot;select * from appello where id =&quot; + id + &quot;&quot;);</span>
+<span class="fc bfc" id="L323" title="All 2 branches covered.">            while (rest.next()) {</span>
+
+<span class="fc" id="L325">                bp.setId(rest.getInt(1));</span>
+<span class="fc" id="L326">                bp.setAula(rest.getString(2));</span>
+<span class="fc" id="L327">                bp.setDate(rest.getDate(3));</span>
+<span class="fc" id="L328">                bp.setDescription(rest.getString(4));</span>
+<span class="fc" id="L329">                bp.setDurata(rest.getDouble(5));</span>
+<span class="fc" id="L330">                bp.setDocente(rest.getInt(6));</span>
+<span class="fc" id="L331">                bp.setInsegnamento(rest.getInt(7));</span>
+            }
+
+<span class="nc" id="L334">        } catch (SQLException ex) {</span>
+<span class="nc" id="L335">            Logger.getLogger(Service.class.getName()).log(Level.SEVERE, null, ex);</span>
+<span class="fc" id="L336">        }</span>
+
+<span class="fc" id="L338">        return bp;</span>
+
+    }
+
+    @Override
+    public Prenotazione getStatoByIDMateria(int id) {
+
+<span class="nc" id="L345">        Prenotazione bp = new Prenotazione();</span>
+
+        ResultSet rest;
+        try {
+<span class="nc" id="L349">            Statement stm = myDB.getConnexion().createStatement();</span>
+<span class="nc" id="L350">            rest = stm.executeQuery(&quot;select * from prenotazione where idAppello=(select id from appello where insegnamento_codice=&quot; + id + &quot;)&quot;);</span>
+<span class="nc bnc" id="L351" title="All 2 branches missed.">            while (rest.next()) {</span>
+
+<span class="nc" id="L353">                bp.setPrenotazionePK(rest.getInt(1));</span>
+<span class="nc" id="L354">                bp.setAppello(rest.getInt(2));</span>
+<span class="nc" id="L355">                bp.setStudente(rest.getInt(3));</span>
+<span class="nc" id="L356">                bp.setVoto(rest.getString(4));</span>
+<span class="nc" id="L357">                bp.setStato(rest.getString(5));</span>
+
+            }
+
+<span class="nc" id="L361">        } catch (SQLException ex) {</span>
+<span class="nc" id="L362">            Logger.getLogger(Service.class.getName()).log(Level.SEVERE, null, ex);</span>
+<span class="nc" id="L363">        }</span>
+
+<span class="nc" id="L365">        return bp;</span>
+
+    }
+
+    @Override
+    public void ModificareStato(int id) {
+        try {
+
+            PreparedStatement prep;
+<span class="fc" id="L374">            myDB = MyDB.getInstance();</span>
+            String req;
+<span class="fc" id="L376">            req = &quot;UPDATE `prenotazione` SET  `stato` = ? WHERE id = &quot; + id + &quot;&quot;;</span>
+
+<span class="fc" id="L378">            prep = myDB.getConnexion().prepareStatement(req);</span>
+<span class="fc" id="L379">            prep.setString(1, &quot;Rifiutato&quot;);</span>
+<span class="fc" id="L380">            prep.executeUpdate();</span>
+<span class="fc" id="L381">            System.out.println(&quot;Modificazione fatta!&quot;);</span>
+<span class="nc" id="L382">        } catch (SQLException ex) {</span>
+<span class="nc" id="L383">            System.out.println(&quot;C'è stato un problema durante la modificazione!&quot;);</span>
+<span class="fc" id="L384">        }</span>
+<span class="fc" id="L385">    }</span>
+
+    @Override
+    public void ModificareStatoAccettato(int id) {
+
+        try {
+
+            PreparedStatement prep;
+<span class="nc" id="L393">            myDB = MyDB.getInstance();</span>
+            String req;
+<span class="nc" id="L395">            req = &quot;UPDATE `prenotazione` SET  `stato` = ? WHERE id = &quot; + id + &quot;&quot;;</span>
+
+<span class="nc" id="L397">            prep = myDB.getConnexion().prepareStatement(req);</span>
+<span class="nc" id="L398">            prep.setString(1, &quot;Accettato&quot;);</span>
+<span class="nc" id="L399">            prep.executeUpdate();</span>
+<span class="nc" id="L400">            System.out.println(&quot;Modificazione fatta!&quot;);</span>
+<span class="nc" id="L401">        } catch (SQLException ex) {</span>
+<span class="nc" id="L402">            System.out.println(&quot;C'è stato un problema durante la modificazione!&quot;);</span>
+<span class="nc" id="L403">        }</span>
+<span class="nc" id="L404">    }</span>
+
+    @Override
+    public List&lt;Prenotazione&gt; getAllPrenotazione() {
+
+<span class="fc" id="L409">        List&lt;Prenotazione&gt; list = new ArrayList&lt;&gt;();</span>
+        ResultSet rest;
+        try {
+<span class="fc" id="L412">            Statement stm = myDB.getConnexion().createStatement();</span>
+<span class="fc" id="L413">            rest = stm.executeQuery(&quot;select * from prenotazione where voto != -1 and stato != 'Rifiutato' and idStudente=&quot; + LoginMemberController.getIdCnx() + &quot;&quot;);</span>
+<span class="fc bfc" id="L414" title="All 2 branches covered.">            while (rest.next()) {</span>
+
+<span class="fc" id="L416">                Prenotazione bp = new Prenotazione();</span>
+
+<span class="fc" id="L418">                bp.setPrenotazionePK(rest.getInt(1));</span>
+<span class="fc" id="L419">                bp.setAppello(rest.getInt(2));</span>
+<span class="fc" id="L420">                bp.setStudente(rest.getInt(3));</span>
+<span class="fc" id="L421">                bp.setVoto(rest.getString(4));</span>
+<span class="fc" id="L422">                bp.setStato(rest.getString(5));</span>
+<span class="fc" id="L423">                list.add(bp);</span>
+<span class="fc" id="L424">            }</span>
+
+<span class="nc" id="L426">        } catch (SQLException ex) {</span>
+<span class="nc" id="L427">            Logger.getLogger(Service.class.getName()).log(Level.SEVERE, null, ex);</span>
+<span class="fc" id="L428">        }</span>
+
+<span class="fc" id="L430">        return list;</span>
+
+    }
+
+    @Override
+    public List&lt;Insegnamento&gt; getAllMaterieByNome(String a) {
+
+<span class="fc" id="L437">        List&lt;Insegnamento&gt; list = new ArrayList&lt;&gt;();</span>
+        try {
+<span class="fc" id="L439">            ResultSet rest = null;</span>
+<span class="fc" id="L440">            Statement stm = myDB.getConnexion().createStatement();</span>
+<span class="pc bpc" id="L441" title="1 of 2 branches missed.">            if (a.length() != 0) {</span>
+<span class="fc" id="L442">                rest = stm.executeQuery(&quot;select * from insegnamento where nome LIKE '%&quot; + a + &quot;%'&quot;);</span>
+
+            }
+<span class="pc bpc" id="L445" title="1 of 2 branches missed.">            if (a.length() == 0) {</span>
+<span class="nc" id="L446">                rest = stm.executeQuery(&quot;select * from insegnamento&quot;);</span>
+
+            }
+
+<span class="fc bfc" id="L450" title="All 2 branches covered.">            while (rest.next()) {</span>
+<span class="fc" id="L451">                Insegnamento bp = new Insegnamento();</span>
+
+<span class="fc" id="L453">                bp.setCodice(rest.getInt(1));</span>
+<span class="fc" id="L454">                bp.setAnnoDiStudi(AnnoDiStudi.valueOf(rest.getString(2)));</span>
+<span class="fc" id="L455">                bp.setCfu(rest.getInt(3));</span>
+<span class="fc" id="L456">                bp.setDescription(rest.getString(4));</span>
+<span class="fc" id="L457">                bp.setNome(rest.getString(5));</span>
+<span class="fc" id="L458">                bp.setCorsoDiStudio(rest.getInt(6));</span>
+<span class="fc" id="L459">                list.add(bp);</span>
+
+<span class="fc" id="L461">            }</span>
+
+<span class="nc" id="L463">        } catch (SQLException ex) {</span>
+<span class="nc" id="L464">            Logger.getLogger(Service.class.getName()).log(Level.SEVERE, null, ex);</span>
+<span class="fc" id="L465">        }</span>
+<span class="fc" id="L466">        return list;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

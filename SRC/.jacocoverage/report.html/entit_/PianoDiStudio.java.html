@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>PianoDiStudio.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;progettoJava&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">entità</a> &gt; <span class="el_source">PianoDiStudio.java</span></div><h1>PianoDiStudio.java</h1><pre class="source lang-java linenums">package entità;
+
+import java.util.Date;
+import java.util.List;
+
+import enumerations.TipoPianoStudi;
+import java.util.ArrayList;
+ 
+/**
+ * 
+ * @author assma
+ */
+
+/**
+ * Classe:PianoDiStudio
+ * contiene il id e il tipo(parziale/tempo pieno)del piano di studio dello studente
+ */
+public class PianoDiStudio {
+    
+    /** Attributes */
+    private int id;
+    private TipoPianoStudi tipo;
+    private Date annoScolastico;
+    /** Associations */
+    private Sistema sistema;
+    private List&lt;Studente&gt; listStudente;
+    private Insegnamento insegnamentos;
+
+    
+     /** 
+     * Costruttore con parametri
+     * @param id
+     * @param tipo
+     * @param listStudente
+     * @param insegnamentos
+     */
+<span class="nc" id="L37">    public PianoDiStudio(int id, TipoPianoStudi tipo, List&lt;Studente&gt; listStudente, Insegnamento insegnamentos) {</span>
+<span class="nc" id="L38">        this.id = id;</span>
+<span class="nc" id="L39">        this.tipo = tipo;        </span>
+<span class="nc" id="L40">        this.listStudente = listStudente;</span>
+<span class="nc" id="L41">        this.insegnamentos = insegnamentos;</span>
+<span class="nc" id="L42">    }</span>
+   
+    
+     /** Costruttore senza parametri*/
+    public PianoDiStudio() {
+<span class="nc" id="L47">        super();</span>
+<span class="nc" id="L48">    }</span>
+    
+    
+    /**
+     * @return id
+     */
+    public int getId() {
+<span class="nc" id="L55">        return this.id;</span>
+    }
+
+     /**
+     * @param id
+     */
+    public void setId(int id) {
+<span class="nc" id="L62">        this.id = id;</span>
+<span class="nc" id="L63">    }</span>
+    
+    /**
+     * @return tipo
+     */
+    public TipoPianoStudi getTipo() {
+<span class="nc" id="L69">        return this.tipo;</span>
+    }
+
+     /**
+     * @param tipo
+     */
+    public void setTipo(TipoPianoStudi tipo) {
+<span class="nc" id="L76">        this.tipo = tipo;</span>
+<span class="nc" id="L77">    }</span>
+
+    
+   /**
+     * @return annoScolastico
+     */
+    public Date getAnnoScolastico() {
+<span class="nc" id="L84">        return this.annoScolastico;</span>
+    }
+
+    
+    /**
+     * @param annoScolastico
+     */
+    public void setAnnoScolastico(Date annoScolastico) {
+<span class="nc" id="L92">        this.annoScolastico = annoScolastico;</span>
+<span class="nc" id="L93">    }</span>
+    
+
+    /**
+     * @return sistema
+     */
+    public Sistema getSistema() {
+<span class="nc" id="L100">        return sistema;</span>
+    }
+
+    /**
+	 * @param sistema
+	 */
+    public void setSistema(Sistema sistema) {
+<span class="nc" id="L107">        this.sistema = sistema;</span>
+<span class="nc" id="L108">    }</span>
+    
+    /**
+     * @return listStudente
+     */
+    public List&lt;Studente&gt; getListStudente() {
+<span class="nc" id="L114">        return listStudente;</span>
+    }
+    
+
+    /**
+	 * @param listStudente
+	 */
+    public void setListStudente(List&lt;Studente&gt; listStudente) {
+<span class="nc" id="L122">        this.listStudente = listStudente;</span>
+<span class="nc" id="L123">    }</span>
+    
+    
+    /**
+     * @return insegnamentos
+     */
+    public Insegnamento getInsegnamentos() {
+<span class="nc" id="L130">        return insegnamentos;</span>
+    }
+
+    /**
+	 * @param insegnamentos
+	 */
+    public void setInsegnamentos(Insegnamento insegnamentos) {
+<span class="nc" id="L137">        this.insegnamentos = insegnamentos;</span>
+<span class="nc" id="L138">    }</span>
+
+    void setInsegnamentos(ArrayList&lt;Insegnamento&gt; Materia1) {
+        //throw new UnsupportedOperationException(&quot;Not supported yet.&quot;); //To change body of generated methods, choose Tools | Templates.
+<span class="nc" id="L142">    }</span>
+
+    
+<span class="nc" id="L145">    PianoDiStudio(ArrayList&lt;Insegnamento&gt; insegnamentos, Studente studente) {</span>
+        //throw new UnsupportedOperationException(&quot;Not supported yet.&quot;); //To change body of generated methods, choose Tools | Templates.
+<span class="nc" id="L147">    }</span>
+
+
+<span class="nc" id="L150">    PianoDiStudio(Studente studente, ArrayList&lt;Insegnamento&gt; Materia1) {</span>
+<span class="nc" id="L151">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;); //To change body of generated methods, choose Tools | Templates.</span>
+    }
+
+      
+   /**
+     * @param mat
+     * operazione permette di aggiungere un'insegnamento 
+	 */
+    public void aggiungiInsegnamento (Insegnamento mat ) {
+<span class="nc bnc" id="L160" title="All 2 branches missed.">    	if (insegnamentos.isEmpty()) {</span>
+<span class="nc" id="L161">    		ArrayList&lt;Insegnamento&gt; materia = new ArrayList&lt;Insegnamento&gt;();</span>
+<span class="nc" id="L162">    		materia.add(mat);</span>
+<span class="nc" id="L163">    		setInsegnamentos(materia);</span>
+<span class="nc" id="L164">    	} else {</span>
+<span class="nc" id="L165">    		insegnamentos.add(mat);</span>
+    		
+    	}
+        
+<span class="nc" id="L169">}</span>
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

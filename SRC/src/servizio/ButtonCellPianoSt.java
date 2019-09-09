@@ -1,5 +1,6 @@
 package servizio;
 
+import com.javafx.main.Main;
 import com.sun.prism.impl.Disposer.Record;
 import entità.Insegnamento;
 import java.io.IOException;
@@ -12,7 +13,15 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 import javafx.scene.layout.AnchorPane;
+/**
+ * 
+ * @author assma
+ */
 
+/**
+ * Classe:ButtonCellPianoSt
+ * Gestire il pulsante della conferma del piano di studio che si trova nel table view  
+ */
 
 public class ButtonCellPianoSt extends TableCell<Record, Boolean> {
 
@@ -20,34 +29,31 @@ public class ButtonCellPianoSt extends TableCell<Record, Boolean> {
 
     public ButtonCellPianoSt() {
 
-        //Action when the button is pressed
+        /*Action when the button is pressed*/
         cellButton.setOnAction((ActionEvent t) -> {
-            // get Selected Item
+            /*get Selected Item*/
             Insegnamento prodcourant = (Insegnamento) ButtonCellPianoSt.this.getTableView().getItems().get(ButtonCellPianoSt.this.getIndex());
-            //remove selected item from the table list
+            /*remove selected item from the table list*/
             System.out.println("ID du produit   " + prodcourant.getCodice());
             Service l = new Service();
 
             l.getMateria(prodcourant);
             AnchorPane pane = new AnchorPane();
             try {
-                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Informazioni");
-        alert.setHeaderText(null);
-        alert.setContentText("La materia è stata inserita nel tuo piano di studi");
-        alert.show();
-                Main.Main.getInstance().changescene(new Scene(FXMLLoader.load(getClass().getResource("/views/planEtudes.fxml"))));
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Informazioni");
+                alert.setHeaderText(null);
+                alert.setContentText("La materia è stata inserita nel tuo piano di studi");
+                alert.show();
+                Main.getInstance().changescene(new Scene(FXMLLoader.load(getClass().getResource("/views/PianoDiStudio.fxml"))));
             } catch (IOException ex) {
                 Logger.getLogger(ButtonCellPianoSt.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-            // main.getInstance().changescene(new Scene(FXMLLoader.load(getClass().getResource("/views/modifprod.fxml"))));
-
-            // main.getInstance().changescene(new Scene(FXMLLoader.load(getClass().getResource("/views/modifprod.fxml"))));
         });
     }
 
-    //Display button if the row is not empty
+    /*Display button if the row is not empty*/
     @Override
     protected void updateItem(Boolean t, boolean empty) {
         super.updateItem(t, empty);

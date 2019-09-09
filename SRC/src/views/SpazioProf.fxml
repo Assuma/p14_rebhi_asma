@@ -15,6 +15,5 @@
       </Label>
       <Button layoutX="168.0" layoutY="136.0" mnemonicParsing="false" onAction="#ajouterAppel" prefHeight="50.0" prefWidth="200.0" text="Inserire Appello" />
       <Button layoutX="168.0" layoutY="230.0" mnemonicParsing="false" onAction="#AjouterNote" prefHeight="50.0" prefWidth="200.0" text="Registrare Voto" />
-      <Button layoutX="168.0" layoutY="329.0" mnemonicParsing="false" onAction="#statProf" prefHeight="50.0" prefWidth="200.0" text="Statistiche" />
    </children>
 </AnchorPane>

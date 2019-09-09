@@ -17,6 +17,14 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import servizio.Service;
 
+/**
+ * 
+ * @author assma
+ */
+
+/**
+ *Presentare lo spazio per gli studenti e i suoi differenti funzionalita' chi puo' fare
+ */
 
 public class SpazioStudenteController implements Initializable {
 
@@ -39,13 +47,15 @@ public class SpazioStudenteController implements Initializable {
     public SpazioStudenteController() throws SQLException {
         this.etudiant = etudiantService.getStudentById(LoginMemberController.getIdCnx());
     }
-    
+    /**
+     * Initializes the controller class.
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
        
         labelH.setText("Benvenuto "+etudiant.getNome());
     }    
-
+    //andare all'interfaccia per modificare i suoi dati
     @FXML
     private void modifierProfiB(ActionEvent event) throws IOException {
         Parent page1 = FXMLLoader.load(getClass().getResource("/views/ModificareAnagrafica.fxml"));
@@ -56,6 +66,7 @@ public class SpazioStudenteController implements Initializable {
 
     }
 
+    //andare all'interfaccia per compilare il suo  piano di studio
     @FXML
     private void planEtudes(ActionEvent event) throws IOException {
         Parent page1 = FXMLLoader.load(getClass().getResource("/views/PianoDiStudio.fxml"));
@@ -66,6 +77,7 @@ public class SpazioStudenteController implements Initializable {
 
     }
 
+    //andare all'interfaccia per accettare/rifiutare un voto  
     @FXML
     private void noteExamen(ActionEvent event) throws IOException {
         Parent page1 = FXMLLoader.load(getClass().getResource("/views/VotoEsame.fxml"));
@@ -75,7 +87,7 @@ public class SpazioStudenteController implements Initializable {
             stage.show();
 
     }
-
+    //andare all'interfaccia per prenotare per un esame 
     @FXML
     private void reserverExamenB(ActionEvent event) throws IOException {
         Parent page1 = FXMLLoader.load(getClass().getResource("/views/PrenotareEsame.fxml"));
@@ -85,7 +97,7 @@ public class SpazioStudenteController implements Initializable {
             stage.show();
 
     }
-
+    //Logout e tornare alla pagina precedente
     @FXML
     private void logOut(ActionEvent event) throws IOException {
         Parent page1 = FXMLLoader.load(getClass().getResource("/views/LoginMember.fxml"));

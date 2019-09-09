@@ -23,6 +23,15 @@ import javafx.stage.Stage;
 import servizio.Service;
 
 
+/**
+ * 
+ * @author assma
+ */
+
+/**
+ *Classe per modificare i dati dello studente 
+ */
+
 public class ModificareAnagraficaController implements Initializable {
 
     @FXML
@@ -65,7 +74,7 @@ public class ModificareAnagraficaController implements Initializable {
         }
 
     }
-
+    //confermare la modifica dei dati
     @FXML
     private void DoModifier(ActionEvent event) {
         Service es = new Service();
@@ -83,7 +92,8 @@ public class ModificareAnagraficaController implements Initializable {
         alert.setContentText("il tuo profilo è cambiato con successo");
         alert.show();
     }
-
+   
+    //Tornare alla pagina precedente
     @FXML
     private void retour(ActionEvent event) throws IOException {
         Parent page1 = FXMLLoader.load(getClass().getResource("/views/SpazioStudente.fxml"));

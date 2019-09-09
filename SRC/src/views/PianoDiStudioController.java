@@ -1,4 +1,3 @@
-
 package views;
 
 import com.sun.prism.impl.Disposer;
@@ -34,6 +33,15 @@ import javafx.util.Callback;
 import servizio.ButtonCellPianoSt;
 import servizio.Service;
 
+
+/**
+ * 
+ * @author assma
+ */
+
+/**
+ *Compilare il piano di studio, selezionare le matiere ad aggiungere nel piano di studio
+ */
 
 public class PianoDiStudioController implements Initializable {
 
@@ -110,19 +118,6 @@ public class PianoDiStudioController implements Initializable {
         
         tablePlanEtudes.setItems(data);
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
      try {
      Service es = new Service();
 

@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+//Test Strutturale della classe insegnamento
 package entità;
 
 import enumerations.AnnoDiStudi;
@@ -68,7 +69,7 @@ public class InsegnamentoIT {
         String expResult = "System Identification";
         String result = instance.getNome();
         assertEquals(expResult, result);
-        //fail("The test case is a prototype.");
+      
     }
     
      @Test
@@ -90,7 +91,7 @@ public class InsegnamentoIT {
         int expResult = 6;
         int result = instance.getCfu();
         assertEquals(expResult, result);
-        //fail("The test case is a prototype.");
+        
     }
     
         @Test

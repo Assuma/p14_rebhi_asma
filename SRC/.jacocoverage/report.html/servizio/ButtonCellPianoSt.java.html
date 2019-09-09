@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>ButtonCellPianoSt.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;progettoJava&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">servizio</a> &gt; <span class="el_source">ButtonCellPianoSt.java</span></div><h1>ButtonCellPianoSt.java</h1><pre class="source lang-java linenums">package servizio;
+
+import com.javafx.main.Main;
+import com.sun.prism.impl.Disposer.Record;
+import entità.Insegnamento;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableCell;
+import javafx.scene.layout.AnchorPane;
+/**
+ * 
+ * @author assma
+ */
+
+/**
+ * Classe:ButtonCellPianoSt
+ * Gestire il pulsante della conferma del piano di studio che si trova nel table view  
+ */
+
+public class ButtonCellPianoSt extends TableCell&lt;Record, Boolean&gt; {
+
+<span class="fc" id="L28">    final Button cellButton = new Button(&quot;Confermare&quot;);</span>
+
+<span class="fc" id="L30">    public ButtonCellPianoSt() {</span>
+
+        /*Action when the button is pressed*/
+<span class="fc" id="L33">        cellButton.setOnAction((ActionEvent t) -&gt; {</span>
+            /*get Selected Item*/
+<span class="fc" id="L35">            Insegnamento prodcourant = (Insegnamento) ButtonCellPianoSt.this.getTableView().getItems().get(ButtonCellPianoSt.this.getIndex());</span>
+            /*remove selected item from the table list*/
+<span class="fc" id="L37">            System.out.println(&quot;ID du produit   &quot; + prodcourant.getCodice());</span>
+<span class="fc" id="L38">            Service l = new Service();</span>
+
+<span class="fc" id="L40">            l.getMateria(prodcourant);</span>
+<span class="fc" id="L41">            AnchorPane pane = new AnchorPane();</span>
+            try {
+<span class="fc" id="L43">                Alert alert = new Alert(Alert.AlertType.INFORMATION);</span>
+<span class="fc" id="L44">                alert.setTitle(&quot;Informazioni&quot;);</span>
+<span class="fc" id="L45">                alert.setHeaderText(null);</span>
+<span class="fc" id="L46">                alert.setContentText(&quot;La materia è stata inserita nel tuo piano di studi&quot;);</span>
+<span class="fc" id="L47">                alert.show();</span>
+<span class="fc" id="L48">                Main.getInstance().changescene(new Scene(FXMLLoader.load(getClass().getResource(&quot;/views/PianoDiStudio.fxml&quot;))));</span>
+<span class="nc" id="L49">            } catch (IOException ex) {</span>
+<span class="nc" id="L50">                Logger.getLogger(ButtonCellPianoSt.class.getName()).log(Level.SEVERE, null, ex);</span>
+<span class="fc" id="L51">            }</span>
+
+<span class="fc" id="L53">        });</span>
+<span class="fc" id="L54">    }</span>
+
+    /*Display button if the row is not empty*/
+    @Override
+    protected void updateItem(Boolean t, boolean empty) {
+<span class="fc" id="L59">        super.updateItem(t, empty);</span>
+<span class="fc bfc" id="L60" title="All 2 branches covered.">        if (!empty) {</span>
+<span class="fc" id="L61">            setGraphic(cellButton);</span>
+        }
+<span class="fc" id="L63">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

@@ -1,7 +1,7 @@
 package servizio;
 
+import com.javafx.main.Main;
 import com.sun.prism.impl.Disposer;
-import entità.Insegnamento;
 import entità.Prenotazione;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -11,15 +11,28 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.layout.AnchorPane;
+
+/**
+ * 
+ * @author assma
+ */
+
+/**
+ * Classe:ButtonCellRifiutare
+ * Il pulstante che usa lo studente per rifiutare o accettare il voto  
+ */
 
 
 public class ButtonCellRifiutare extends TableCell<Disposer.Record, Boolean> {
 
     final Button cellButton = new Button();
 
+    /**
+     *
+     * @param a
+     */
     public ButtonCellRifiutare(int a) {
 
         if (a == 2) {
@@ -33,11 +46,11 @@ public class ButtonCellRifiutare extends TableCell<Disposer.Record, Boolean> {
             cellButton.setText("Voto Accettato");
 
         }
-        //Action when the button is pressed
+        /*Action when the button is pressed*/
         cellButton.setOnAction((ActionEvent t) -> {
-            // get Selected Item
+            /*get Selected Item*/
             Prenotazione prodcourant = (Prenotazione) ButtonCellRifiutare.this.getTableView().getItems().get(ButtonCellRifiutare.this.getIndex());
-            //remove selected item from the table list
+            /*remove selected item from the table list*/
             Service l = new Service();
 
             if (cellButton.getText().equals("Accettare")) {
@@ -62,16 +75,15 @@ public class ButtonCellRifiutare extends TableCell<Disposer.Record, Boolean> {
                 alert.setHeaderText(null);
                 alert.setContentText("Il voto è insufficiente!");
                 alert.show();
-                Main.Main.getInstance().changescene(new Scene(FXMLLoader.load(getClass().getResource("/views/noteExamen.fxml"))));
+                Main.getInstance().changescene(new Scene(FXMLLoader.load(getClass().getResource("/views/VotoEsame.fxml"))));
             } catch (IOException ex) {
                 Logger.getLogger(ButtonCellPianoSt.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-            // main.getInstance().changescene(new Scene(FXMLLoader.load(getClass().getResource("/views/modifprod.fxml"))));
         });
     }
 
-    //Display button if the row is not empty
+    /*Display button if the row is not empty*/
     @Override
     protected void updateItem(Boolean t, boolean empty) {
         super.updateItem(t, empty);

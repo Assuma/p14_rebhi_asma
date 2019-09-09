@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>ButtonCellRifiutare.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;progettoJava&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">servizio</a> &gt; <span class="el_source">ButtonCellRifiutare.java</span></div><h1>ButtonCellRifiutare.java</h1><pre class="source lang-java linenums">package servizio;
+
+import com.javafx.main.Main;
+import com.sun.prism.impl.Disposer;
+import entità.Prenotazione;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableCell;
+import javafx.scene.layout.AnchorPane;
+
+/**
+ * 
+ * @author assma
+ */
+
+/**
+ * Classe:ButtonCellRifiutare
+ * Il pulstante che usa lo studente per rifiutare o accettare il voto  
+ */
+
+
+public class ButtonCellRifiutare extends TableCell&lt;Disposer.Record, Boolean&gt; {
+
+<span class="nc" id="L30">    final Button cellButton = new Button();</span>
+
+<span class="nc" id="L32">    public ButtonCellRifiutare(int a) {</span>
+
+<span class="nc bnc" id="L34" title="All 2 branches missed.">        if (a == 2) {</span>
+
+<span class="nc" id="L36">            cellButton.setText(&quot;Accettare&quot;);</span>
+        }
+<span class="nc bnc" id="L38" title="All 2 branches missed.">        if (a == 1) {</span>
+<span class="nc" id="L39">            cellButton.setText(&quot;Rifiutare&quot;);</span>
+        }
+<span class="nc bnc" id="L41" title="All 2 branches missed.">        if (a == 3) {</span>
+<span class="nc" id="L42">            cellButton.setText(&quot;Voto Accettato&quot;);</span>
+
+        }
+        /*Action when the button is pressed*/
+<span class="nc" id="L46">        cellButton.setOnAction((ActionEvent t) -&gt; {</span>
+            /*get Selected Item*/
+<span class="nc" id="L48">            Prenotazione prodcourant = (Prenotazione) ButtonCellRifiutare.this.getTableView().getItems().get(ButtonCellRifiutare.this.getIndex());</span>
+            /*remove selected item from the table list*/
+<span class="nc" id="L50">            Service l = new Service();</span>
+
+<span class="nc bnc" id="L52" title="All 2 branches missed.">            if (cellButton.getText().equals(&quot;Accettare&quot;)) {</span>
+<span class="nc" id="L53">                l.ModificareStatoAccettato(prodcourant.getPrenotazionePK());</span>
+            }
+
+<span class="nc bnc" id="L56" title="All 2 branches missed.">            if (cellButton.getText().equals(&quot;Rifiutare&quot;)) {</span>
+<span class="nc" id="L57">                l.ModificareStato(prodcourant.getPrenotazionePK());</span>
+            }
+<span class="nc bnc" id="L59" title="All 2 branches missed.">            if (cellButton.getText().equals(&quot;Voto Accettato&quot;)) {</span>
+<span class="nc" id="L60">                Alert alert = new Alert(Alert.AlertType.INFORMATION);</span>
+<span class="nc" id="L61">                alert.setTitle(&quot;Informazioni&quot;);</span>
+<span class="nc" id="L62">                alert.setHeaderText(null);</span>
+<span class="nc" id="L63">                alert.setContentText(&quot;Hai già accettato il voto&quot;);</span>
+<span class="nc" id="L64">                alert.show();</span>
+            }
+
+<span class="nc" id="L67">            AnchorPane pane = new AnchorPane();</span>
+            try {
+<span class="nc" id="L69">                Alert alert = new Alert(Alert.AlertType.INFORMATION);</span>
+<span class="nc" id="L70">                alert.setTitle(&quot;Informazioni&quot;);</span>
+<span class="nc" id="L71">                alert.setHeaderText(null);</span>
+<span class="nc" id="L72">                alert.setContentText(&quot;Il voto è insufficiente!&quot;);</span>
+<span class="nc" id="L73">                alert.show();</span>
+<span class="nc" id="L74">                Main.getInstance().changescene(new Scene(FXMLLoader.load(getClass().getResource(&quot;/views/VotoEsame.fxml&quot;))));</span>
+<span class="nc" id="L75">            } catch (IOException ex) {</span>
+<span class="nc" id="L76">                Logger.getLogger(ButtonCellPianoSt.class.getName()).log(Level.SEVERE, null, ex);</span>
+<span class="nc" id="L77">            }</span>
+
+<span class="nc" id="L79">        });</span>
+<span class="nc" id="L80">    }</span>
+
+    /*Display button if the row is not empty*/
+    @Override
+    protected void updateItem(Boolean t, boolean empty) {
+<span class="nc" id="L85">        super.updateItem(t, empty);</span>
+<span class="nc bnc" id="L86" title="All 2 branches missed.">        if (!empty) {</span>
+
+<span class="nc" id="L88">            setGraphic(cellButton);</span>
+
+        }
+
+<span class="nc" id="L92">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>
